@@ -65,22 +65,19 @@
             font-size: 14px;
             text-align: left;
             max-width: 100%;
-            overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            justify-content: center;
+            overflow: auto;
+            max-height: 150px; /* Limit height to make it scrollable */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
         }
         .suggestion-item {
             cursor: pointer;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            background-color: #f0f0f0;
-            white-space: nowrap;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
         }
         .suggestion-item:hover {
-            background-color: #ddd;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -201,12 +198,20 @@
                 return;
             }
 
+            // Fuzzy search for better matching
             const suggestions = allCities
-                .filter(city => city.toLowerCase().includes(input.toLowerCase()))
+                .filter(city => fuzzyMatch(city, input))
                 .map(city => `<span class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</span>`)
                 .join(', ');
 
             document.getElementById('suggestions').innerHTML = suggestions;
+        }
+
+        function fuzzyMatch(city, input) {
+            // Simple fuzzy matching: check if the input is a substring of the city name or vice versa
+            const cityLower = city.toLowerCase();
+            const inputLower = input.toLowerCase();
+            return cityLower.includes(inputLower) || inputLower.includes(cityLower);
         }
 
         function selectSuggestion(city) {
