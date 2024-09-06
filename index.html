@@ -69,9 +69,9 @@
                 </select>
             </div>
             <div>
-                <label for="city">Ciudad/Pueblo:</label>
+                <label for="city">Localidad:</label>
                 <select id="city">
-                    <option value="">Selecciona una ciudad/pueblo</option>
+                    <option value="">Selecciona una localidad</option>
                 </select>
             </div>
         </div>
@@ -109,7 +109,7 @@
 
             // Clear previous options
             provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
-            citySelect.innerHTML = '<option value="">Selecciona una ciudad/pueblo</option>';
+            citySelect.innerHTML = '<option value="">Selecciona una localidad</option>';
 
             for (const province in provinces) {
                 const option = document.createElement('option');
@@ -128,7 +128,7 @@
             const cities = data[community]?.[province] || [];
 
             // Clear previous options
-            citySelect.innerHTML = '<option value="">Selecciona una ciudad/pueblo</option>';
+            citySelect.innerHTML = '<option value="">Selecciona una localidad</option>';
 
             cities.forEach(city => {
                 const option = document.createElement('option');
@@ -144,7 +144,7 @@
                 alert(`Buscando comentarios y entradas de usuario para ${city}`);
                 // Implement the search functionality here
             } else {
-                alert('Por favor, selecciona una ciudad/pueblo.');
+                alert('Por favor, selecciona una localidad.');
             }
         }
     </script>
