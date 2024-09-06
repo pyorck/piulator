@@ -54,6 +54,11 @@
         button:hover {
             background-color: #0056b3;
         }
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -75,6 +80,7 @@
             </div>
         </div>
         <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
+        <div id="error-message"></div>
     </div>
 
 <script>
@@ -87,6 +93,7 @@
             .then(jsonData => {
                 data = jsonData;
                 populateCommunities();
+                
                 // Collect all cities from data
                 allCities = Object.values(data).flatMap(provinces =>
                     Object.values(provinces).flat()
@@ -140,27 +147,25 @@
         const isValid = community && province && city && allCities.includes(city);
         button.disabled = !isValid;
 
-        // Display validation message if needed
-        if (isValid) {
-            button.title = "Todo está correcto. Haz clic para buscar.";
-        } else {
-            button.title = "Por favor, selecciona una comunidad, provincia y escribe una ciudad válida.";
+        // Show error message if city is invalid
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            errorMessage.textContent = isValid ? '' : `Ciudad "${city}" no encontrada. Por favor, verifica la ortografía o elige una ciudad de la lista.`;
         }
     }
 
     function searchComments() {
-        const city = document.getElementById('city').value;
-        if (city) {
+        const city = document.getElementById('city').value.trim();
+        if (city && allCities.includes(city)) {
             alert(`Buscando comentarios y entradas de usuario para ${city}`);
             // Implement the search functionality here
         } else {
-            alert('Por favor, selecciona una ciudad/pueblo.');
+            alert('Por favor, selecciona una ciudad/pueblo válida.');
         }
     }
 
     // Fetch data when the page loads
     document.addEventListener('DOMContentLoaded', fetchData);
-    
 </script>
 
 </body>
