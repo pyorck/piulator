@@ -77,80 +77,91 @@
         <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
     </div>
 
-    <script>
-        let data = {};
-        let allCities = [];
+<script>
+    let data = {};
+    let allCities = [];
 
-        function fetchData() {
-            fetch('data.json')
-                .then(response => response.json())
-                .then(jsonData => {
-                    data = jsonData;
-                    populateCommunities();
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
+    function fetchData() {
+        fetch('data.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                data = jsonData;
+                populateCommunities();
+                // Collect all cities from data
+                allCities = Object.values(data).flatMap(provinces =>
+                    Object.values(provinces).flat()
+                );
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    function populateCommunities() {
+        const communitySelect = document.getElementById('community');
+        for (const community in data) {
+            const option = document.createElement('option');
+            option.value = community;
+            option.textContent = community;
+            communitySelect.appendChild(option);
+        }
+    }
+
+    function updateProvinces() {
+        const communitySelect = document.getElementById('community');
+        const provinceSelect = document.getElementById('province');
+        const community = communitySelect.value;
+        const provinces = data[community] || {};
+
+        provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
+        for (const province in provinces) {
+            const option = document.createElement('option');
+            option.value = province;
+            option.textContent = province;
+            provinceSelect.appendChild(option);
         }
 
-        function populateCommunities() {
-            const communitySelect = document.getElementById('community');
-            for (const community in data) {
-                const option = document.createElement('option');
-                option.value = community;
-                option.textContent = community;
-                communitySelect.appendChild(option);
-            }
+        // Clear city input
+        clearCity();
+    }
+
+    function clearCity() {
+        document.getElementById('city').value = '';
+        validateForm();
+    }
+
+    function validateForm() {
+        const community = document.getElementById('community').value;
+        const province = document.getElementById('province').value;
+        const city = document.getElementById('city').value.trim();
+        const button = document.getElementById('searchButton');
+
+        // Check if all fields are selected and city is valid
+        const isValid = community && province && city && allCities.includes(city);
+        button.disabled = !isValid;
+
+        // Display validation message if needed
+        if (isValid) {
+            button.title = "Todo está correcto. Haz clic para buscar.";
+        } else {
+            button.title = "Por favor, selecciona una comunidad, provincia y escribe una ciudad válida.";
         }
+    }
 
-        function updateProvinces() {
-            const communitySelect = document.getElementById('community');
-            const provinceSelect = document.getElementById('province');
-            const community = communitySelect.value;
-            const provinces = data[community] || {};
-
-            provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
-            for (const province in provinces) {
-                const option = document.createElement('option');
-                option.value = province;
-                option.textContent = province;
-                provinceSelect.appendChild(option);
-            }
-
-            // Clear city input
-            clearCity();
+    function searchComments() {
+        const city = document.getElementById('city').value;
+        if (city) {
+            alert(`Buscando comentarios y entradas de usuario para ${city}`);
+            // Implement the search functionality here
+        } else {
+            alert('Por favor, selecciona una ciudad/pueblo.');
         }
+    }
 
-        function clearCity() {
-            document.getElementById('city').value = '';
-            validateForm();
-        }
+    // Fetch data when the page loads
+    document.addEventListener('DOMContentLoaded', fetchData);
+    
+</script>
 
-        function validateForm() {
-            const community = document.getElementById('community').value;
-            const province = document.getElementById('province').value;
-            const city = document.getElementById('city').value.trim();
-            const button = document.getElementById('searchButton');
-
-            if (community && province && city && allCities.includes(city)) {
-                button.disabled = false;
-            } else {
-                button.disabled = true;
-            }
-        }
-
-        function searchComments() {
-            const city = document.getElementById('city').value;
-            if (city) {
-                alert(`Buscando comentarios y entradas de usuario para ${city}`);
-                // Implement the search functionality here
-            } else {
-                alert('Por favor, selecciona una ciudad/pueblo.');
-            }
-        }
-
-        // Fetch data when the page loads
-        document.addEventListener('DOMContentLoaded', fetchData);
-    </script>
 </body>
 </html>
