@@ -3,98 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL INFORMER</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background-color: #f5f5f5;
-    }
-    .container {
-        width: 100%;
-        max-width: 600px;
-        padding: 20px;
-        text-align: center;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        position: relative;
-    }
-    .dropdown-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-    }
-    .dropdown-group > div {
-        flex: 1;
-        min-width: 150px;
-        max-width: 200px;
-    }
-    select, input {
-        padding: 8px;
-        font-size: 14px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    button {
-        padding: 10px 15px;
-        font-size: 14px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-    button:hover {
-        background-color: #0056b3;
-    }
-    .autocomplete-suggestions {
-        border: 1px solid #ddd;
-        max-height: 150px;
-        overflow-y: auto;
-        position: absolute;
-        top: calc(100% + 2px); /* Position below the input */
-        box-sizing: border-box;
-        
-    }
-    .autocomplete-suggestion {
-        padding: 8px;
-        cursor: pointer;
-        font-size: 14px;
-        text-align: left; /* Align text to the left */
-    }
-    .autocomplete-suggestion:hover {
-        background-color: #eee;
-    }
-</style>
+    <title>Informer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .dropdown-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .dropdown-group > div {
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
+        }
+        select, input {
+            padding: 8px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>EL INFORMER DE</h1>
         <div class="dropdown-group">
             <div>
-                <select id="community" onchange="updateProvinces()">
+                <select id="community" onchange="updateProvinces(); validateForm();">
                     <option value="">Comunidad Autónoma</option>
                 </select>
             </div>
             <div>
-                <select id="province" onchange="clearCity()">
+                <select id="province" onchange="clearCity(); validateForm();">
                     <option value="">Provincia</option>
                 </select>
             </div>
             <div>
-                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="showSuggestions(event)">
-                <div id="suggestions" class="autocomplete-suggestions"></div>
+                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="validateForm();">
             </div>
         </div>
-        <button onclick="searchComments()">¡INFÓRMAME!</button>
+        <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
     </div>
 
     <script>
@@ -137,40 +117,26 @@
                 provinceSelect.appendChild(option);
             }
 
-            // Clear city input and suggestions
+            // Clear city input
             clearCity();
         }
 
         function clearCity() {
             document.getElementById('city').value = '';
-            document.getElementById('suggestions').innerHTML = '';
+            validateForm();
         }
 
-        function showSuggestions(event) {
-            const input = event.target.value.toLowerCase();
-            const suggestionsDiv = document.getElementById('suggestions');
-            suggestionsDiv.innerHTML = '';
+        function validateForm() {
+            const community = document.getElementById('community').value;
+            const province = document.getElementById('province').value;
+            const city = document.getElementById('city').value.trim();
+            const button = document.getElementById('searchButton');
 
-            if (input.length < 3) return; // Show suggestions only for input with length >= 3
-
-            fetch('cities.json')
-                .then(response => response.json())
-                .then(citiesData => {
-                    const filteredCities = citiesData.filter(city => city.toLowerCase().includes(input));
-                    filteredCities.forEach(city => {
-                        const suggestion = document.createElement('div');
-                        suggestion.textContent = city;
-                        suggestion.classList.add('autocomplete-suggestion');
-                        suggestion.onclick = () => {
-                            document.getElementById('city').value = city;
-                            suggestionsDiv.innerHTML = '';
-                        };
-                        suggestionsDiv.appendChild(suggestion);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching cities data:', error);
-                });
+            if (community && province && city && allCities.includes(city)) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+            }
         }
 
         function searchComments() {
