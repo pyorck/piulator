@@ -55,15 +55,11 @@
         <h1>Informer ES</h1>
         <p>¿Lo recuerdas? Te lo traémos de nuevo. Descubre qué está pasando en tu pueblo o Ciudad.
             Descubre lo que está pasando en tu área o en tus lugares favoritos de tu ciudad. ¡Vamos allá!</p>
-        <div class="dropdown-group">
+                <div class="dropdown-group">
             <div>
                 <label for="community">Comunidad Autónoma:</label>
                 <select id="community" onchange="updateProvinces()">
                     <option value="">Selecciona una comunidad</option>
-                    <option value="Cataluña">Cataluña</option>
-                    <option value="Madrid">Madrid</option>
-                    <option value="Andalucía">Andalucía</option>
-                    <!-- Add more communities as needed -->
                 </select>
             </div>
             <div>
@@ -83,24 +79,25 @@
     </div>
 
     <script>
-        const communities = {
-            "Cataluña": {
-                "Barcelona": ["Barcelona", "Sabadell", "Terrassa", "Manresa"],
-                "Gerona": ["Girona", "Figueres"],
-                "Lérida": ["Lleida", "Balaguer"],
-                "Tarragona": ["Tarragona", "Reus", "El Vendrell"]
-            },
-            "Madrid": {
-                "Madrid": ["Madrid", "Alcalá de Henares", "Getafe", "Leganés"]
-            },
-            "Andalucía": {
-                "Sevilla": ["Sevilla", "Dos Hermanas", "Alcalá de Guadaíra"],
-                "Málaga": ["Málaga", "Marbella", "Estepona"],
-                "Granada": ["Granada", "Armilla", "Ogíjares"]
-                // Add more provinces and cities as needed
+        let data = {};
+
+        // Fetch the JSON data
+        fetch('data.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                data = jsonData;
+                populateCommunities();
+            });
+
+        function populateCommunities() {
+            const communitySelect = document.getElementById('community');
+            for (const community in data) {
+                const option = document.createElement('option');
+                option.value = community;
+                option.textContent = community;
+                communitySelect.appendChild(option);
             }
-            // Add more communities and their provinces/cities as needed
-        };
+        }
 
         function updateProvinces() {
             const communitySelect = document.getElementById('community');
@@ -108,7 +105,7 @@
             const citySelect = document.getElementById('city');
 
             const community = communitySelect.value;
-            const provinces = communities[community] || {};
+            const provinces = data[community] || {};
 
             // Clear previous options
             provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
@@ -128,7 +125,7 @@
 
             const community = document.getElementById('community').value;
             const province = provinceSelect.value;
-            const cities = communities[community]?.[province] || [];
+            const cities = data[community]?.[province] || [];
 
             // Clear previous options
             citySelect.innerHTML = '<option value="">Selecciona una ciudad/pueblo</option>';
