@@ -64,6 +64,16 @@
             margin-top: 10px;
             font-size: 14px;
             text-align: left;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .suggestion-item {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -86,11 +96,11 @@
             <div>
                 <label for="city">Ciudad/Pueblo:</label>
                 <input type="text" id="city" placeholder="Escribe una ciudad o pueblo" oninput="validateForm();">
+                <div id="suggestions"></div>
             </div>
         </div>
         <button id="searchButton" onclick="searchComments()" disabled>¡Vamos!</button>
         <div id="error-message"></div>
-        <div id="suggestions"></div>
     </div>
 
     <script>
@@ -143,6 +153,7 @@
 
         function clearCity() {
             document.getElementById('city').value = '';
+            document.getElementById('suggestions').innerHTML = '';
             validateForm();
         }
 
@@ -152,7 +163,6 @@
             const city = document.getElementById('city').value.trim();
             const button = document.getElementById('searchButton');
             const errorMessage = document.getElementById('error-message');
-            const suggestions = document.getElementById('suggestions');
 
             let missingFields = [];
             if (!community) missingFields.push('Comunidad');
@@ -162,7 +172,6 @@
             if (missingFields.length) {
                 button.disabled = true;
                 errorMessage.textContent = `Faltan los siguientes campos: ${missingFields.join(', ')}.`;
-                suggestions.textContent = '';
                 return;
             }
 
@@ -172,16 +181,31 @@
 
             if (!isValid) {
                 errorMessage.textContent = `Ciudad "${city}" no encontrada.`;
-                suggestions.textContent = `¿Quizás quisiste decir: ${getSuggestions(city).join(', ')}?`;
+                displaySuggestions(city);
             } else {
                 errorMessage.textContent = '';
-                suggestions.textContent = '';
+                document.getElementById('suggestions').innerHTML = '';
             }
         }
 
-        function getSuggestions(input) {
-            // Basic suggestion algorithm (case insensitive)
-            return allCities.filter(city => city.toLowerCase().includes(input.toLowerCase()));
+        function displaySuggestions(input) {
+            if (input.length < 3) {
+                document.getElementById('suggestions').innerHTML = '';
+                return;
+            }
+
+            const suggestions = allCities
+                .filter(city => city.toLowerCase().includes(input.toLowerCase()))
+                .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
+                .join('');
+
+            document.getElementById('suggestions').innerHTML = suggestions;
+        }
+
+        function selectSuggestion(city) {
+            document.getElementById('city').value = city;
+            document.getElementById('suggestions').innerHTML = '';
+            validateForm();
         }
 
         function searchComments() {
