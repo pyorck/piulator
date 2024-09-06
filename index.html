@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .dropdown-container {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Placeholder for Logo -->
+        <div class="logo">
+            <img src="logo-placeholder.png" alt="Logo" style="max-width: 100%; height: auto;">
+        </div>
 
+        <!-- Drop-down list for Cities -->
+        <div class="dropdown-container">
+            <label for="city">Ciudad:</label>
+            <select id="city" name="city">
+                <option value="">Selecciona una ciudad</option>
+                <!-- List of cities in Spain -->
+                <option value="Madrid">Madrid</option>
+                <option value="Barcelona">Barcelona</option>
+                <option value="Valencia">Valencia</option>
+                <option value="Sevilla">Sevilla</option>
+                <option value="Zaragoza">Zaragoza</option>
+                <option value="Málaga">Málaga</option>
+                <option value="Murcia">Murcia</option>
+                <option value="Palma">Palma</option>
+                <option value="Las Palmas de Gran Canaria">Las Palmas de Gran Canaria</option>
+                <option value="Bilbao">Bilbao</option>
+                <option value="A Coruña">A Coruña</option>
+                <option value="Valladolid">Valladolid</option>
+                <option value="Alicante">Alicante</option>
+                <option value="Córdoba">Córdoba</option>
+                <option value="Vigo">Vigo</option>
+                <option value="Gijón">Gijón</option>
+                <option value="Eibar">Eibar</option>
+                <option value="Oviedo">Oviedo</option>
+                <option value="Albacete">Albacete</option>
+                <option value="Salamanca">Salamanca</option>
+                <!-- Add more cities as needed -->
+            </select>
+        </div>
+
+        <!-- Search Button -->
+        <button onclick="searchComments()">¡Vamos!</button>
+    </div>
+
+    <script>
+        function searchComments() {
+            const city = document.getElementById('city').value;
+            if (city) {
+                alert(`Buscando comentarios y entradas de usuario para ${city}`);
+                // Implement the search functionality here
+            } else {
+                alert('Por favor, selecciona una ciudad.');
+            }
+        }
+    </script>
+</body>
+</html>
