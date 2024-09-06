@@ -18,13 +18,23 @@
         }
         .container {
             width: 80%;
-            max-width: 600px;
+            max-width: 800px;
             text-align: center;
+        }
+        .dropdown-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .dropdown-group > div {
+            margin: 0 10px;
+            flex: 1;
         }
         select {
             padding: 10px;
             font-size: 16px;
-            margin: 10px;
+            width: 100%;
         }
         button {
             padding: 10px 20px;
@@ -43,25 +53,30 @@
 <body>
     <div class="container">
         <h1>Selecciona Comunidad, Provincia y Ciudad</h1>
-        <label for="community">Comunidad Autónoma:</label>
-        <select id="community" onchange="updateProvinces()">
-            <option value="">Selecciona una comunidad</option>
-            <option value="Cataluña">Cataluña</option>
-            <option value="Madrid">Madrid</option>
-            <option value="Andalucía">Andalucía</option>
-            <!-- Add more communities as needed -->
-        </select>
-
-        <label for="province">Provincia:</label>
-        <select id="province" onchange="updateCities()">
-            <option value="">Selecciona una provincia</option>
-        </select>
-
-        <label for="city">Ciudad/Pueblo:</label>
-        <select id="city">
-            <option value="">Selecciona una ciudad/pueblo</option>
-        </select>
-
+        <div class="dropdown-group">
+            <div>
+                <label for="community">Comunidad Autónoma:</label>
+                <select id="community" onchange="updateProvinces()">
+                    <option value="">Selecciona una comunidad</option>
+                    <option value="Cataluña">Cataluña</option>
+                    <option value="Madrid">Madrid</option>
+                    <option value="Andalucía">Andalucía</option>
+                    <!-- Add more communities as needed -->
+                </select>
+            </div>
+            <div>
+                <label for="province">Provincia:</label>
+                <select id="province" onchange="updateCities()">
+                    <option value="">Selecciona una provincia</option>
+                </select>
+            </div>
+            <div>
+                <label for="city">Ciudad/Pueblo:</label>
+                <select id="city">
+                    <option value="">Selecciona una ciudad/pueblo</option>
+                </select>
+            </div>
+        </div>
         <button onclick="searchComments()">¡Vamos!</button>
     </div>
 
