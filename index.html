@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informer</title>
+    <title>INFORMER</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,6 +59,12 @@
             margin-top: 10px;
             font-size: 14px;
         }
+        #suggestions {
+            color: blue;
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -66,107 +72,130 @@
         <h1>EL INFORMER DE</h1>
         <div class="dropdown-group">
             <div>
+                <label for="community">Comunidad Autónoma:</label>
                 <select id="community" onchange="updateProvinces(); validateForm();">
-                    <option value="">Comunidad Autónoma</option>
+                    <option value="">Selecciona una comunidad</option>
                 </select>
             </div>
             <div>
+                <label for="province">Provincia:</label>
                 <select id="province" onchange="clearCity(); validateForm();">
-                    <option value="">Provincia</option>
+                    <option value="">Selecciona una provincia</option>
                 </select>
             </div>
             <div>
-                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="validateForm();">
+                <label for="city">Ciudad/Pueblo:</label>
+                <input type="text" id="city" placeholder="Escribe una ciudad o pueblo" oninput="validateForm();">
             </div>
         </div>
-        <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
+        <button id="searchButton" onclick="searchComments()" disabled>¡Vamos!</button>
         <div id="error-message"></div>
+        <div id="suggestions"></div>
     </div>
 
-<script>
-    let data = {};
-    let allCities = [];
+    <script>
+        let data = {};
+        let allCities = [];
 
-    function fetchData() {
-        fetch('data.json')
-            .then(response => response.json())
-            .then(jsonData => {
+        function fetchData() {
+            // Fetch data from both JSON files
+            Promise.all([
+                fetch('data.json').then(response => response.json()),
+                fetch('cities.json').then(response => response.json())
+            ])
+            .then(([jsonData, citiesData]) => {
                 data = jsonData;
+                allCities = citiesData;
                 populateCommunities();
-                
-                // Collect all cities from data
-                allCities = Object.values(data).flatMap(provinces =>
-                    Object.values(provinces).flat()
-                );
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-    }
-
-    function populateCommunities() {
-        const communitySelect = document.getElementById('community');
-        for (const community in data) {
-            const option = document.createElement('option');
-            option.value = community;
-            option.textContent = community;
-            communitySelect.appendChild(option);
-        }
-    }
-
-    function updateProvinces() {
-        const communitySelect = document.getElementById('community');
-        const provinceSelect = document.getElementById('province');
-        const community = communitySelect.value;
-        const provinces = data[community] || {};
-
-        provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
-        for (const province in provinces) {
-            const option = document.createElement('option');
-            option.value = province;
-            option.textContent = province;
-            provinceSelect.appendChild(option);
         }
 
-        // Clear city input
-        clearCity();
-    }
-
-    function clearCity() {
-        document.getElementById('city').value = '';
-        validateForm();
-    }
-
-    function validateForm() {
-        const community = document.getElementById('community').value;
-        const province = document.getElementById('province').value;
-        const city = document.getElementById('city').value.trim();
-        const button = document.getElementById('searchButton');
-
-        // Check if all fields are selected and city is valid
-        const isValid = community && province && city && allCities.includes(city);
-        button.disabled = !isValid;
-
-        // Show error message if city is invalid
-        const errorMessage = document.getElementById('error-message');
-        if (errorMessage) {
-            errorMessage.textContent = isValid ? '' : `Ciudad "${city}" no encontrada. Por favor, verifica la ortografía o elige una ciudad de la lista.`;
+        function populateCommunities() {
+            const communitySelect = document.getElementById('community');
+            for (const community in data) {
+                const option = document.createElement('option');
+                option.value = community;
+                option.textContent = community;
+                communitySelect.appendChild(option);
+            }
         }
-    }
 
-    function searchComments() {
-        const city = document.getElementById('city').value.trim();
-        if (city && allCities.includes(city)) {
-            alert(`Buscando comentarios y entradas de usuario para ${city}`);
-            // Implement the search functionality here
-        } else {
-            alert('Por favor, selecciona una ciudad/pueblo válida.');
+        function updateProvinces() {
+            const communitySelect = document.getElementById('community');
+            const provinceSelect = document.getElementById('province');
+            const community = communitySelect.value;
+            const provinces = data[community] || {};
+
+            provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
+            for (const province in provinces) {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            }
+
+            // Clear city input
+            clearCity();
         }
-    }
 
-    // Fetch data when the page loads
-    document.addEventListener('DOMContentLoaded', fetchData);
-</script>
+        function clearCity() {
+            document.getElementById('city').value = '';
+            validateForm();
+        }
 
+        function validateForm() {
+            const community = document.getElementById('community').value;
+            const province = document.getElementById('province').value;
+            const city = document.getElementById('city').value.trim();
+            const button = document.getElementById('searchButton');
+            const errorMessage = document.getElementById('error-message');
+            const suggestions = document.getElementById('suggestions');
+
+            let missingFields = [];
+            if (!community) missingFields.push('Comunidad');
+            if (!province) missingFields.push('Provincia');
+            if (!city) missingFields.push('Ciudad/Pueblo');
+
+            if (missingFields.length) {
+                button.disabled = true;
+                errorMessage.textContent = `Faltan los siguientes campos: ${missingFields.join(', ')}.`;
+                suggestions.textContent = '';
+                return;
+            }
+
+            // Check if city is valid
+            const isValid = allCities.includes(city);
+            button.disabled = !isValid;
+
+            if (!isValid) {
+                errorMessage.textContent = `Ciudad "${city}" no encontrada.`;
+                suggestions.textContent = `¿Quizás quisiste decir: ${getSuggestions(city).join(', ')}?`;
+            } else {
+                errorMessage.textContent = '';
+                suggestions.textContent = '';
+            }
+        }
+
+        function getSuggestions(input) {
+            // Basic suggestion algorithm (case insensitive)
+            return allCities.filter(city => city.toLowerCase().includes(input.toLowerCase()));
+        }
+
+        function searchComments() {
+            const city = document.getElementById('city').value.trim();
+            if (city && allCities.includes(city)) {
+                alert(`Buscando comentarios y entradas de usuario para ${city}`);
+                // Implement the search functionality here
+            } else {
+                alert('Por favor, selecciona una ciudad/pueblo válida.');
+            }
+        }
+
+        // Fetch data when the page loads
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
 </body>
 </html>
