@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informer ES</title>
+    <title>INFORMER</title>
     <style>
         body {
-            font-family: Geneva, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -23,15 +23,13 @@
         }
         .dropdown-group {
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            flex-direction: column;
             margin-bottom: 20px;
         }
         .dropdown-group > div {
-            margin: 0 10px;
-            flex: 1;
+            margin-bottom: 10px;
         }
-        select {
+        select, input {
             padding: 10px;
             font-size: 16px;
             width: 100%;
@@ -48,14 +46,28 @@
         button:hover {
             background-color: #0056b3;
         }
+        .autocomplete-suggestions {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background: white;
+            width: calc(100% - 22px);
+            z-index: 1000;
+        }
+        .autocomplete-suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestion:hover {
+            background-color: #eee;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Informer ES</h1>
-        <p>¿Lo recuerdas? Te lo traémos de nuevo. Descubre qué está pasando en tu pueblo o Ciudad.
-            Descubre lo que está pasando en tu área o en tus lugares favoritos de tu ciudad. ¡Vamos allá!</p>
-                <div class="dropdown-group">
+        <h1>Selecciona Comunidad, Provincia y Ciudad</h1>
+        <div class="dropdown-group">
             <div>
                 <label for="community">Comunidad Autónoma:</label>
                 <select id="community" onchange="updateProvinces()">
@@ -64,15 +76,14 @@
             </div>
             <div>
                 <label for="province">Provincia:</label>
-                <select id="province" onchange="updateCities()">
+                <select id="province" onchange="clearCity()">
                     <option value="">Selecciona una provincia</option>
                 </select>
             </div>
             <div>
-                <label for="city">Localidad:</label>
-                <select id="city">
-                    <option value="">Selecciona una localidad</option>
-                </select>
+                <label for="city">Ciudad/Pueblo:</label>
+                <input type="text" id="city" placeholder="Escribe una ciudad o pueblo" oninput="showSuggestions(event)">
+                <div id="suggestions" class="autocomplete-suggestions"></div>
             </div>
         </div>
         <button onclick="searchComments()">¡Vamos!</button>
@@ -80,14 +91,19 @@
 
     <script>
         let data = {};
+        let allCities = [];
 
-        // Fetch the JSON data
-        fetch('data.json')
-            .then(response => response.json())
-            .then(jsonData => {
-                data = jsonData;
-                populateCommunities();
-            });
+        function fetchData() {
+            fetch('data.json')
+                .then(response => response.json())
+                .then(jsonData => {
+                    data = jsonData;
+                    populateCommunities();
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
 
         function populateCommunities() {
             const communitySelect = document.getElementById('community');
@@ -102,40 +118,51 @@
         function updateProvinces() {
             const communitySelect = document.getElementById('community');
             const provinceSelect = document.getElementById('province');
-            const citySelect = document.getElementById('city');
-
             const community = communitySelect.value;
             const provinces = data[community] || {};
 
-            // Clear previous options
             provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
-            citySelect.innerHTML = '<option value="">Selecciona una localidad</option>';
-
             for (const province in provinces) {
                 const option = document.createElement('option');
                 option.value = province;
                 option.textContent = province;
                 provinceSelect.appendChild(option);
             }
+
+            // Clear city input and suggestions
+            clearCity();
         }
 
-        function updateCities() {
-            const provinceSelect = document.getElementById('province');
-            const citySelect = document.getElementById('city');
+        function clearCity() {
+            document.getElementById('city').value = '';
+            document.getElementById('suggestions').innerHTML = '';
+        }
 
-            const community = document.getElementById('community').value;
-            const province = provinceSelect.value;
-            const cities = data[community]?.[province] || [];
+        function showSuggestions(event) {
+            const input = event.target.value.toLowerCase();
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestionsDiv.innerHTML = '';
 
-            // Clear previous options
-            citySelect.innerHTML = '<option value="">Selecciona una localidad</option>';
+            if (input.length < 3) return; // Show suggestions only for input with length >= 3
 
-            cities.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city;
-                option.textContent = city;
-                citySelect.appendChild(option);
-            });
+            fetch('cities.json')
+                .then(response => response.json())
+                .then(citiesData => {
+                    const filteredCities = citiesData.filter(city => city.toLowerCase().includes(input));
+                    filteredCities.forEach(city => {
+                        const suggestion = document.createElement('div');
+                        suggestion.textContent = city;
+                        suggestion.classList.add('autocomplete-suggestion');
+                        suggestion.onclick = () => {
+                            document.getElementById('city').value = city;
+                            suggestionsDiv.innerHTML = '';
+                        };
+                        suggestionsDiv.appendChild(suggestion);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching cities data:', error);
+                });
         }
 
         function searchComments() {
@@ -144,11 +171,11 @@
                 alert(`Buscando comentarios y entradas de usuario para ${city}`);
                 // Implement the search functionality here
             } else {
-                alert('Por favor, selecciona una localidad.');
+                alert('Por favor, selecciona una ciudad/pueblo.');
             }
         }
 
-                // Fetch data when the page loads
+        // Fetch data when the page loads
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
 </body>
