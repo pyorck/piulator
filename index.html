@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFORMER</title>
+    <title>Selecciona Comunidad, Provincia y Ciudad</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,7 +57,7 @@
         #error-message {
             color: red;
             margin-top: 10px;
-            font-size: 10px;
+            font-size: 14px;
         }
         #suggestions {
             color: blue;
@@ -66,40 +66,48 @@
             text-align: left;
             max-width: 100%;
             overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
         }
         .suggestion-item {
             cursor: pointer;
             padding: 5px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+            white-space: nowrap;
         }
         .suggestion-item:hover {
-            background-color: #f0f0f0;
+            background-color: #ddd;
         }
-        
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>EL INFORMER DE</h1>
+        <h1>Selecciona Comunidad, Provincia y Ciudad</h1>
         <div class="dropdown-group">
             <div>
+                <label for="community">Comunidad Autónoma:</label>
                 <select id="community" onchange="updateProvinces(); validateForm();">
-                    <option value="">Comunidad autónoma</option>
+                    <option value="">Selecciona una comunidad</option>
                 </select>
             </div>
             <div>
+                <label for="province">Provincia:</label>
                 <select id="province" onchange="clearCity(); validateForm();">
-                    <option value="">Provincia</option>
+                    <option value="">Selecciona una provincia</option>
                 </select>
             </div>
             <div>
-                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="validateForm();">
+                <label for="city">Ciudad/Pueblo:</label>
+                <input type="text" id="city" placeholder="Escribe una ciudad o pueblo" oninput="validateForm();">
                 <div id="suggestions"></div>
             </div>
         </div>
+        <button id="searchButton" onclick="searchComments()" disabled>¡Vamos!</button>
         <div id="error-message"></div>
-        <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
-        
     </div>
 
     <script>
@@ -188,15 +196,15 @@
         }
 
         function displaySuggestions(input) {
-            if (input.length < 4) {
+            if (input.length < 3) {
                 document.getElementById('suggestions').innerHTML = '';
                 return;
             }
 
             const suggestions = allCities
                 .filter(city => city.toLowerCase().includes(input.toLowerCase()))
-                .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
-                .join('');
+                .map(city => `<span class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</span>`)
+                .join(', ');
 
             document.getElementById('suggestions').innerHTML = suggestions;
         }
