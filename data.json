@@ -1,0 +1,17 @@
+{
+    "Cataluña": {
+        "Barcelona": ["Barcelona", "Sabadell", "Terrassa", "Manresa"],
+        "Gerona": ["Girona", "Figueres"],
+        "Lérida": ["Lleida", "Balaguer"],
+        "Tarragona": ["Tarragona", "Reus", "El Vendrell"]
+    },
+    "Madrid": {
+        "Madrid": ["Madrid", "Alcalá de Henares", "Getafe", "Leganés"]
+    },
+    "Andalucía": {
+        "Sevilla": ["Sevilla", "Dos Hermanas", "Alcalá de Guadaíra"],
+        "Málaga": ["Málaga", "Marbella", "Estepona"],
+        "Granada": ["Granada", "Armilla", "Ogíjares"]
+    }
+    // Add more communities and their provinces/cities as needed
+}
