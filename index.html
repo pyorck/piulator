@@ -66,16 +66,14 @@
             text-align: left;
             max-width: 100%;
             overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
         }
         .suggestion-item {
-            display: inline-block;
-            margin-right: 10px;
             cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
         }
         .suggestion-item:hover {
-            text-decoration: underline;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -109,20 +107,20 @@
         let data = {};
         let allCities = [];
 
-        async function fetchData() {
-            try {
-                const [dataResponse, citiesResponse] = await Promise.all([
-                    fetch('data.json'),
-                    fetch('cities.json')
-                ]);
-
-                data = await dataResponse.json();
-                allCities = await citiesResponse.json();
-
+        function fetchData() {
+            // Fetch data from both JSON files
+            Promise.all([
+                fetch('data.json').then(response => response.json()),
+                fetch('cities.json').then(response => response.json())
+            ])
+            .then(([jsonData, citiesData]) => {
+                data = jsonData;
+                allCities = citiesData;
                 populateCommunities();
-            } catch (error) {
+            })
+            .catch(error => {
                 console.error('Error fetching data:', error);
-            }
+            });
         }
 
         function populateCommunities() {
@@ -149,6 +147,7 @@
                 provinceSelect.appendChild(option);
             }
 
+            // Clear city input
             clearCity();
         }
 
@@ -196,9 +195,9 @@
             }
 
             const suggestions = allCities
-                .filter(city => city.toLowerCase().includes(input.toLowerCase()) || getSimilarityScore(input, city) > 0.8)
-                .map(city => `<span class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</span>`)
-                .join(', ');
+                .filter(city => city.toLowerCase().includes(input.toLowerCase()))
+                .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
+                .join('');
 
             document.getElementById('suggestions').innerHTML = suggestions;
         }
@@ -207,36 +206,6 @@
             document.getElementById('city').value = city;
             document.getElementById('suggestions').innerHTML = '';
             validateForm();
-        }
-
-        function getSimilarityScore(str1, str2) {
-            function levenshtein(a, b) {
-                const tmp;
-                let i, j;
-                const alen = a.length;
-                const blen = b.length;
-                const arr = [];
-                if (alen === 0) { return blen; }
-                if (blen === 0) { return alen; }
-                for (i = 0; i <= blen; i++) { arr[i] = i; }
-                for (i = 0; i < alen; i++) {
-                    arr[0] = i + 1;
-                    tmp = i;
-                    for (j = 0; j < blen; j++) {
-                        if (a[i] === b[j]) { 
-                            arr[j + 1] = tmp; 
-                        } else { 
-                            arr[j + 1] = Math.min(arr[j] + 1, Math.min(arr[j + 1] + 1, tmp + 1)); 
-                        }
-                        tmp = arr[j + 1];
-                    }
-                }
-                return arr[blen];
-            }
-
-            const maxLen = Math.max(str1.length, str2.length);
-            const distance = levenshtein(str1.toLowerCase(), str2.toLowerCase());
-            return 1 - (distance / maxLen);
         }
 
         function searchComments() {
