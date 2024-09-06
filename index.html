@@ -65,16 +65,18 @@
             font-size: 14px;
             text-align: left;
             max-width: 100%;
-            overflow: auto;
-            max-height: 150px; /* Limit height to make it scrollable */
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: white;
+            max-height: 150px; /* Limiting height for overflow */
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+            padding: 0;
+            list-style-type: none; /* Remove default list styling */
+            box-sizing: border-box; /* Ensure padding is included in height */
         }
         .suggestion-item {
             cursor: pointer;
-            padding: 8px;
+            padding: 5px;
             border-bottom: 1px solid #ddd;
+            display: block;
+            text-align: left;
         }
         .suggestion-item:hover {
             background-color: #f0f0f0;
@@ -198,20 +200,19 @@
                 return;
             }
 
-            // Fuzzy search for better matching
+            // Find suggestions based on partial matches
             const suggestions = allCities
-                .filter(city => fuzzyMatch(city, input))
+                .filter(city => {
+                    const cityLower = city.toLowerCase();
+                    const inputLower = input.toLowerCase();
+                    return cityLower.includes(inputLower) || 
+                           cityLower.startsWith(inputLower) ||
+                           levenshteinDistance(cityLower, inputLower) <= 2; // Adjust this threshold as needed
+                })
                 .map(city => `<span class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</span>`)
                 .join(', ');
 
             document.getElementById('suggestions').innerHTML = suggestions;
-        }
-
-        function fuzzyMatch(city, input) {
-            // Simple fuzzy matching: check if the input is a substring of the city name or vice versa
-            const cityLower = city.toLowerCase();
-            const inputLower = input.toLowerCase();
-            return cityLower.includes(inputLower) || inputLower.includes(cityLower);
         }
 
         function selectSuggestion(city) {
@@ -228,6 +229,40 @@
             } else {
                 alert('Por favor, selecciona una ciudad/pueblo válida.');
             }
+        }
+
+        function levenshteinDistance(a, b) {
+            const tmp;
+            const i, j;
+            const alen = a.length;
+            const blen = b.length;
+            const row = Array(blen);
+            const d = Array(alen);
+
+            if (alen === 0) { return blen; }
+            if (blen === 0) { return alen; }
+
+            for (i = 0; i <= alen; i++) {
+                d[i] = Array(blen);
+                d[i][0] = i;
+            }
+
+            for (j = 0; j <= blen; j++) {
+                d[0][j] = j;
+            }
+
+            for (i = 1; i <= alen; i++) {
+                for (j = 1; j <= blen; j++) {
+                    tmp = a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1;
+                    d[i][j] = Math.min(
+                        d[i - 1][j] + 1,      // Deletion
+                        d[i][j - 1] + 1,      // Insertion
+                        d[i - 1][j - 1] + tmp // Substitution
+                    );
+                }
+            }
+
+            return d[alen][blen];
         }
 
         // Fetch data when the page loads
