@@ -1,17 +1,86 @@
 {
+    "Andalucía": {
+        "Almería": ["Almería", "Roquetas de Mar", "El Ejido"],
+        "Cádiz": ["Cádiz", "Jerez de la Frontera", "San Fernando"],
+        "Córdoba": ["Córdoba", "Lucena", "Montilla"],
+        "Granada": ["Granada", "Armilla", "Ogíjares"],
+        "Huelva": ["Huelva", "Lepe", "Palos de la Frontera"],
+        "Jaén": ["Jaén", "Linares", "Úbeda"],
+        "Málaga": ["Málaga", "Marbella", "Estepona"],
+        "Sevilla": ["Sevilla", "Dos Hermanas", "Alcalá de Guadaíra"]
+    },
+    "Aragón": {
+        "Huesca": ["Huesca", "Jaca", "Monzón"],
+        "Teruel": ["Teruel", "Alcañiz", "Calamocha"],
+        "Zaragoza": ["Zaragoza", "Caspe", "Ejea de los Caballeros"]
+    },
+    "Asturias": {
+        "Asturias": ["Oviedo", "Gijón", "Avilés"]
+    },
+    "Islas Baleares": {
+        "Islas Baleares": ["Palma", "Ibiza", "Manacor"]
+    },
+    "Canarias": {
+        "Las Palmas": ["Las Palmas de Gran Canaria", "Telde", "Arrecife"],
+        "Santa Cruz de Tenerife": ["Santa Cruz de Tenerife", "San Cristóbal de La Laguna", "La Orotava"]
+    },
+    "Cantabria": {
+        "Cantabria": ["Santander", "Torrelavega", "Laredo"]
+    },
+    "Castilla y León": {
+        "Ávila": ["Ávila", "Arévalo", "El Barco de Ávila"],
+        "Burgos": ["Burgos", "Miranda de Ebro", "Aranda de Duero"],
+        "León": ["León", "Ponferrada", "San Andrés del Rabanedo"],
+        "Palencia": ["Palencia", "Aguilar de Campoo", "Osorno"],
+        "Salamanca": ["Salamanca", "Ciudad Rodrigo", "Santa Marta de Tormes"],
+        "Segovia": ["Segovia", "Cuéllar", "Sepúlveda"],
+        "Soria": ["Soria", "El Burgo de Osma", "San Esteban de Gormaz"],
+        "Valladolid": ["Valladolid", "Medina del Campo", "Simancas"],
+        "Zamora": ["Zamora", "Toro", "Benavente"]
+    },
+    "Castilla-La Mancha": {
+        "Albacete": ["Albacete", "Hellín", "La Roda"],
+        "Ciudad Real": ["Ciudad Real", "Puertollano", "Valdepeñas"],
+        "Cuenca": ["Cuenca", "Mota del Cuervo", "Tarancón"],
+        "Guadalajara": ["Guadalajara", "Azuqueca de Henares", "Sigüenza"],
+        "Toledo": ["Toledo", "Talavera de la Reina", "Ocaña"]
+    },
     "Cataluña": {
         "Barcelona": ["Barcelona", "Sabadell", "Terrassa", "Manresa"],
-        "Gerona": ["Girona", "Figueres"],
-        "Lérida": ["Lleida", "Balaguer"],
+        "Gerona": ["Girona", "Figueres", "Olot"],
+        "Lérida": ["Lleida", "Balaguer", "Mollerussa"],
         "Tarragona": ["Tarragona", "Reus", "El Vendrell"]
+    },
+    "Extremadura": {
+        "Badajoz": ["Badajoz", "Mérida", "Don Benito"],
+        "Cáceres": ["Cáceres", "Plasencia", "Coria"]
+    },
+    "Galicia": {
+        "A Coruña": ["A Coruña", "Santiago de Compostela", "Ferrol"],
+        "Lugo": ["Lugo", "Monforte de Lemos", "Vilalba"],
+        "Ourense": ["Ourense", "Verín", "O Barco de Valdeorras"],
+        "Pontevedra": ["Pontevedra", "Vigo", "Sanxenxo"]
     },
     "Madrid": {
         "Madrid": ["Madrid", "Alcalá de Henares", "Getafe", "Leganés"]
     },
-    "Andalucía": {
-        "Sevilla": ["Sevilla", "Dos Hermanas", "Alcalá de Guadaíra"],
-        "Málaga": ["Málaga", "Marbella", "Estepona"],
-        "Granada": ["Granada", "Armilla", "Ogíjares"]
+    "Murcia": {
+        "Murcia": ["Murcia", "Cartagena", "Lorca"]
+    },
+    "La Rioja": {
+        "La Rioja": ["Logroño", "Calahorra", "Arnedo"]
+    },
+    "Navarra": {
+        "Navarra": ["Pamplona", "Tudela", "Estella"]
+    },
+    "País Vasco": {
+        "Álava": ["Vitoria-Gasteiz", "Llodio", "Amurrio"],
+        "Bizkaia": ["Bilbao", "Getxo", "Barakaldo"],
+        "Gipuzkoa": ["San Sebastián", "Hondarribia", "Irun"]
+    },
+    "Valencia": {
+        "Alicante": ["Alicante", "Elche", "Benidorm"],
+        "Castellón": ["Castellón de la Plana", "Vila-real", "Oropesa del Mar"],
+        "Valencia": ["Valencia", "Gandía", "Paterna"]
     }
-    // Add more communities and their provinces/cities as needed
 }
