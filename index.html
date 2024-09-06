@@ -66,6 +66,8 @@
             text-align: left;
             max-width: 100%;
             overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .suggestion-item {
             display: inline-block;
@@ -209,53 +211,34 @@
         }
 
         function getSimilarityScore(str1, str2) {
-            // Basic similarity check using Jaro-Winkler distance
-            function jaroWinkler(s1, s2) {
-                const m = s1.length;
-                const n = s2.length;
-
-                if (m === 0 && n === 0) return 1;
-                if (m === 0 || n === 0) return 0;
-
-                const maxDist = Math.floor(Math.max(m, n) / 2) - 1;
-                let matches = 0;
-                let transpositions = 0;
-                const s1Matches = new Array(m).fill(false);
-                const s2Matches = new Array(n).fill(false);
-
-                for (let i = 0; i < m; i++) {
-                    for (let j = Math.max(0, i - maxDist); j < Math.min(n, i + maxDist + 1); j++) {
-                        if (s1Matches[i] || s2Matches[j]) continue;
-                        if (s1[i] !== s2[j]) continue;
-                        s1Matches[i] = true;
-                        s2Matches[j] = true;
-                        matches++;
-                        break;
+            // Basic similarity check using Levenshtein distance
+            function levenshtein(a, b) {
+                const tmp;
+                let i, j;
+                const alen = a.length;
+                const blen = b.length;
+                const arr = [];
+                if (alen === 0) { return blen; }
+                if (blen === 0) { return alen; }
+                for (i = 0; i <= blen; i++) { arr[i] = i; }
+                for (i = 0; i < alen; i++) {
+                    arr[0] = i + 1;
+                    tmp = i;
+                    for (j = 0; j < blen; j++) {
+                        if (a[i] === b[j]) { 
+                            arr[j + 1] = tmp; 
+                        } else { 
+                            arr[j + 1] = Math.min(arr[j] + 1, Math.min(arr[j + 1] + 1, tmp + 1)); 
+                        }
+                        tmp = arr[j + 1];
                     }
                 }
-
-                if (matches === 0) return 0;
-
-                let k = 0;
-                for (let i = 0; i < m; i++) {
-                    if (!s1Matches[i]) continue;
-                    while (!s2Matches[k]) k++;
-                    if (s1[i] !== s2[k]) transpositions++;
-                    k++;
-                }
-
-                transpositions /= 2;
-                const jaro = (matches / m + matches / n + (matches - transpositions) / matches) / 3;
-                const prefix = 0;
-                for (let i = 0; i < Math.min(4, Math.min(s1.length, s2.length)); i++) {
-                    if (s1[i] === s2[i]) prefix++;
-                    else break;
-                }
-
-                return jaro + (prefix * 0.1 * (1 - jaro));
+                return arr[blen];
             }
 
-            return jaroWinkler(str1.toLowerCase(), str2.toLowerCase());
+            const maxLen = Math.max(str1.length, str2.length);
+            const distance = levenshtein(str1.toLowerCase(), str2.toLowerCase());
+            return 1 - (distance / maxLen);
         }
 
         function searchComments() {
