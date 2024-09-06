@@ -109,20 +109,20 @@
         let data = {};
         let allCities = [];
 
-        function fetchData() {
-            // Fetch data from both JSON files
-            Promise.all([
-                fetch('data.json').then(response => response.json()),
-                fetch('cities.json').then(response => response.json())
-            ])
-            .then(([jsonData, citiesData]) => {
-                data = jsonData;
-                allCities = citiesData;
+        async function fetchData() {
+            try {
+                const [dataResponse, citiesResponse] = await Promise.all([
+                    fetch('data.json'),
+                    fetch('cities.json')
+                ]);
+
+                data = await dataResponse.json();
+                allCities = await citiesResponse.json();
+
                 populateCommunities();
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching data:', error);
-            });
+            }
         }
 
         function populateCommunities() {
@@ -149,7 +149,6 @@
                 provinceSelect.appendChild(option);
             }
 
-            // Clear city input
             clearCity();
         }
 
@@ -211,7 +210,6 @@
         }
 
         function getSimilarityScore(str1, str2) {
-            // Basic similarity check using Levenshtein distance
             function levenshtein(a, b) {
                 const tmp;
                 let i, j;
