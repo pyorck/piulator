@@ -63,8 +63,6 @@
         top: calc(100% + 2px); /* Position below the input */
         left: 0;
         right: 0; /* Full width of the container */
-        background: white;
-        z-index: 1000;
         box-sizing: border-box;
         padding: 0;
         margin: 0;
@@ -82,27 +80,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>EL INFORMER DE:</h1>
+        <h1>EL INFORMER DE</h1>
         <div class="dropdown-group">
             <div>
-                <label for="community">Comunidad Autónoma:</label>
                 <select id="community" onchange="updateProvinces()">
-                    <option value="">Selecciona una comunidad</option>
+                    <option value="">Comunidad Autónoma</option>
                 </select>
             </div>
             <div>
-                <label for="province">Provincia:</label>
                 <select id="province" onchange="clearCity()">
-                    <option value="">Selecciona una provincia</option>
+                    <option value="">Provincia</option>
                 </select>
             </div>
             <div>
-                <label for="city">Ciudad/Pueblo:</label>
-                <input type="text" id="city" placeholder="Escribe una ciudad o pueblo" oninput="showSuggestions(event)">
+                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="showSuggestions(event)">
                 <div id="suggestions" class="autocomplete-suggestions"></div>
             </div>
         </div>
-        <button onclick="searchComments()">¡Vamos!</button>
+        <button onclick="searchComments()">¡INFÓRMAME!</button>
     </div>
 
     <script>
