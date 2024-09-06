@@ -30,7 +30,6 @@
         flex-wrap: wrap;
         gap: 10px;
         justify-content: center;
-        position: relative;
     }
     .dropdown-group > div {
         flex: 1;
@@ -61,12 +60,14 @@
         max-height: 150px;
         overflow-y: auto;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 2px); /* Position below the input */
         left: 0;
-        width: calc(100% - 16px); /* Match the width of the input */
+        right: 0; /* Full width of the container */
         background: white;
         z-index: 1000;
         box-sizing: border-box;
+        padding: 0;
+        margin: 0;
     }
     .autocomplete-suggestion {
         padding: 8px;
