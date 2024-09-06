@@ -63,7 +63,7 @@
         position: absolute;
         top: 100%;
         left: 0;
-        right: 0;
+        width: calc(100% - 16px); /* Match the width of the input */
         background: white;
         z-index: 1000;
         box-sizing: border-box;
@@ -72,6 +72,7 @@
         padding: 8px;
         cursor: pointer;
         font-size: 14px;
+        text-align: left; /* Align text to the left */
     }
     .autocomplete-suggestion:hover {
         background-color: #eee;
