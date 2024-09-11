@@ -5,90 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EL INFORMER DE</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            text-align: center;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .dropdown-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .dropdown-group > div {
-            flex: 1;
-            min-width: 150px;
-            max-width: 200px;
-        }
-        select, input {
-            padding: 8px;
-            font-size: 14px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        #error-message {
-            color: red;
-            margin-top: 5px;
-            margin-bottom: 5px
-            font-size: 8px;
-        }
-        #suggestions {
-            color: blue;
-            margin-top: 10px;
-            font-size: 12px;
-            text-align: left;
-            max-width: 100%;
-            max-height: 50px; /* Limit height */
-            overflow-y: auto; /* Scroll when too many suggestions */
-            list-style-type: none; /* No bullet points */
-            padding: 0;
-        }
-        .suggestion-item {
-            cursor: pointer;
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-        }
-        .suggestion-item:hover {
-            background-color: #f0f0f0;
-        }
+    body {
+        font-family: 'Poppins', sans-serif; /* Modern, clean font */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f0f4f8; /* Light, neutral background */
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 600px;
+        padding: 30px;
+        text-align: center;
+        background: white;
+        border-radius: 12px; /* Softer corners */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Deeper shadow for elevation */
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .container:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Hover shadow effect */
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .dropdown-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+    
+    .dropdown-group > div {
+        flex: 1;
+        min-width: 160px;
+        max-width: 200px;
+    }
+    
+    select, input {
+        padding: 10px;
+        font-size: 16px; /* Slightly larger font */
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 8px; /* Softer corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    select:focus, input:focus {
+        border-color: #007bff; /* Modern blue highlight on focus */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Elevate on focus */
+        outline: none;
+    }
+    
+    button {
+        padding: 12px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Smooth button shadow */
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px); /* Slight lift on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    button:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    #suggestions {
+        color: #007bff;
+        margin-top: 10px;
+        font-size: 14px;
+        text-align: left;
+        max-width: 100%;
+        max-height: 100px;
+        overflow-y: auto;
+        list-style-type: none;
+        padding: 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .suggestion-item {
+        cursor: pointer;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .suggestion-item:hover {
+        background-color: #f0f0f0;
+    }
+    
+    #error-message {
+        color: red;
+        margin-top: 15px;
+        font-size: 14px;
+    }
     </style>
 </head>
 <body>
