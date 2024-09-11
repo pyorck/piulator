@@ -160,64 +160,38 @@
     }
 
     // Setup Fuse.js for fuzzy search
-    let fuse;
-    function setupFuzzySearch() {
-        const options = {
-            threshold: 0.4, // Adjust for sensitivity (0 = exact match, 1 = very fuzzy)
-            keys: ['name'] // Key for the Fuse search, assuming cities.json contains city names
-        };
-        fuse = new Fuse(allCities.map(city => ({ name: city })), options);
+let fuse;
+function setupFuzzySearch() {
+    const options = {
+        threshold: 0.2, // Lower threshold for more precise matches
+        distance: 100, // Prioritize matches that are closer to the start of the string
+        minMatchCharLength: 3, // Only consider matches that are at least 3 characters long
+        keys: ['name'] // Key for the Fuse search, assuming cities.json contains city names
+    };
+    fuse = new Fuse(allCities.map(city => ({ name: city })), options);
+}
+
+function displaySuggestions(input) {
+    if (input.length < 3) {
+        document.getElementById('suggestions').innerHTML = '';
+        return;
     }
 
-    function validateForm() {
-        const community = document.getElementById('community').value;
-        const province = document.getElementById('province').value;
-        const city = document.getElementById('city').value.trim();
-        const button = document.getElementById('searchButton');
-        const errorMessage = document.getElementById('error-message');
+    // Use Fuse.js for fuzzy matching with input
+    const fuzzyResults = fuse.search(input);
+    const suggestions = fuzzyResults
+        .slice(0, 5) // Limit to top 5 suggestions
+        .map(result => result.item.name);
 
-        let missingFields = [];
-        if (!community) missingFields.push('Comunidad');
-        if (!province) missingFields.push('Provincia');
-        if (!city) missingFields.push('Ciudad/Pueblo');
-
-        if (missingFields.length) {
-            button.disabled = true;
-            errorMessage.textContent = `Faltan los siguientes campos: ${missingFields.join(', ')}.`;
-            return;
-        }
-
-        const isValid = allCities.includes(city);
-        button.disabled = !isValid;
-
-        if (!isValid) {
-            errorMessage.textContent = `Ciudad "${city}" no encontrada.`;
-            displaySuggestions(city);
-        } else {
-            errorMessage.textContent = '';
-            document.getElementById('suggestions').innerHTML = '';
-        }
+    if (suggestions.length > 0) {
+        const suggestionHTML = suggestions
+            .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
+            .join('');
+        document.getElementById('suggestions').innerHTML = suggestionHTML;
+    } else {
+        document.getElementById('suggestions').innerHTML = '<div>No suggestions found</div>';
     }
-
-    function displaySuggestions(input) {
-        if (input.length < 3) {
-            document.getElementById('suggestions').innerHTML = '';
-            return;
-        }
-
-        // Use Fuse.js for fuzzy matching
-        const fuzzyResults = fuse.search(input);
-        const suggestions = fuzzyResults.map(result => result.item.name);
-
-        if (suggestions.length > 0) {
-            const suggestionHTML = suggestions
-                .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
-                .join('');
-            document.getElementById('suggestions').innerHTML = suggestionHTML;
-        } else {
-            document.getElementById('suggestions').innerHTML = '<div>No suggestions found</div>';
-        }
-    }
+}
 
     function selectSuggestion(city) {
         document.getElementById('city').value = city;
