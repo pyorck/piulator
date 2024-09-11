@@ -64,7 +64,7 @@ h1 {
 }
 
 /* Dropdown Styles */
-select {
+select, input {
     padding: 15px;
     font-size: 16px;
     width: 100%;
@@ -79,28 +79,33 @@ select {
     z-index: 1; /* Make sure dropdown appears above other content */
 }
 
-select:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
-/* Remove default arrow styling */
-select::-ms-expand {
-    display: none; /* Hide default arrow in IE */
-}
-
-select option {
-    background: rgba(255, 255, 255, 0.9);
-    color: #263238;
-    padding: 10px;
-}
-
-/* Custom Styling for Select Box */
+/* Custom Arrow for Dropdown */
 select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+select::after {
+    content: '▼'; /* Custom arrow */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #263238;
+}
+
+/* Ensure dropdown opens downward */
+select {
+    padding-right: 40px; /* Space for the custom arrow */
+}
+
+/* Focus States */
+select:focus, input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    outline: none;
 }
 
 /* Button - Gradient & 3D Effect */
