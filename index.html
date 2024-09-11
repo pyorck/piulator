@@ -159,25 +159,58 @@
         validateForm();
     }
 
-    // Setup Fuse.js for fuzzy search
+
+// Setup Fuse.js for fuzzy search
 let fuse;
 function setupFuzzySearch() {
     const options = {
         threshold: 0.2, // Lower threshold for more precise matches
-        distance: 100, // Prioritize matches that are closer to the start of the string
-        minMatchCharLength: 3, // Only consider matches that are at least 3 characters long
+        distance: 100,  // Prioritize matches closer to the start of the string
+        minMatchCharLength: 3, // Only consider matches with at least 3 characters
         keys: ['name'] // Key for the Fuse search, assuming cities.json contains city names
     };
     fuse = new Fuse(allCities.map(city => ({ name: city })), options);
 }
 
+// Form validation function
+function validateForm() {
+    const community = document.getElementById('community').value;
+    const province = document.getElementById('province').value;
+    const city = document.getElementById('city').value.trim();
+    const button = document.getElementById('searchButton');
+    const errorMessage = document.getElementById('error-message');
+
+    let missingFields = [];
+    if (!community) missingFields.push('Comunidad');
+    if (!province) missingFields.push('Provincia');
+    if (!city) missingFields.push('Ciudad/Pueblo');
+
+    if (missingFields.length) {
+        button.disabled = true;
+        errorMessage.textContent = `Faltan los siguientes campos: ${missingFields.join(', ')}.`;
+        return;
+    }
+
+    const isValid = allCities.includes(city);
+    button.disabled = !isValid;
+
+    if (!isValid) {
+        errorMessage.textContent = `Ciudad "${city}" no encontrada.`;
+        displaySuggestions(city);
+    } else {
+        errorMessage.textContent = '';
+        document.getElementById('suggestions').innerHTML = '';
+    }
+}
+
+// Display city suggestions with improved fuzzy matching
 function displaySuggestions(input) {
     if (input.length < 3) {
         document.getElementById('suggestions').innerHTML = '';
         return;
     }
 
-    // Use Fuse.js for fuzzy matching with input
+    // Use Fuse.js for fuzzy matching
     const fuzzyResults = fuse.search(input);
     const suggestions = fuzzyResults
         .slice(0, 5) // Limit to top 5 suggestions
@@ -193,22 +226,25 @@ function displaySuggestions(input) {
     }
 }
 
-    function selectSuggestion(city) {
-        document.getElementById('city').value = city;
-        document.getElementById('suggestions').innerHTML = '';
-        validateForm();
-    }
+// Handle city selection from suggestions
+function selectSuggestion(city) {
+    document.getElementById('city').value = city;
+    document.getElementById('suggestions').innerHTML = '';
+    validateForm();
+}
 
-    function searchComments() {
-        const city = document.getElementById('city').value.trim();
-        if (city && allCities.includes(city)) {
-            alert(`Buscando comentarios y entradas de usuario para ${city}`);
-        } else {
-            alert('Por favor, selecciona una ciudad/pueblo válida.');
-        }
+// Handle search button click
+function searchComments() {
+    const city = document.getElementById('city').value.trim();
+    if (city && allCities.includes(city)) {
+        alert(`Buscando comentarios y entradas de usuario para ${city}`);
+    } else {
+        alert('Por favor, selecciona una ciudad/pueblo válida.');
     }
+}
 
-    document.addEventListener('DOMContentLoaded', fetchData);
+// Fetch data on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', fetchData);
 </script>
 </body>
 </html>
