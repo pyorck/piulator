@@ -1,0 +1,191 @@
+/* Body and Background */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f0f0f0; /* Light background color */
+    overflow: hidden; /* Hide overflow to keep the design clean */
+}
+
+/* Background Container */
+.background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Place behind content */
+}
+
+.background-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('image1.jpg') no-repeat center center/cover;
+    animation: rotateBackground 20s linear infinite;
+    filter: blur(4px); /* Soften the borders */
+}
+
+/* Rotating Background Images */
+@keyframes rotateBackground {
+    0% { background-image: url('image1.jpg'); }
+    25% { background-image: url('image2.jpg'); }
+    50% { background-image: url('image3.jpg'); }
+    75% { background-image: url('image4.jpg'); }
+    100% { background-image: url('image5.jpg'); }
+}
+
+/* Container - Popping Effect */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    padding: 50px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+}
+
+/* Headline */
+h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #263238;
+    letter-spacing: 1.5px;
+}
+
+/* Dropdowns and Input Box */
+.dropdown-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.dropdown-group > div {
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+    position: relative;
+}
+
+/* Dropdowns and Inputs */
+select, input {
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #263238;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom Arrow for Dropdown */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px;
+}
+
+select::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #263238;
+}
+
+/* Focus States */
+select:focus, input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+/* Button - Gradient & 3D Effect */
+button {
+    padding: 16px 35px;
+    font-size: 18px;
+    background: linear-gradient(145deg, #0062ff, #004ed8);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+    background: linear-gradient(145deg, #004ed8, #003bb5);
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Suggestions */
+#suggestions {
+    color: #007bff;
+    margin-top: 12px;
+    font-size: 16px;
+    text-align: left;
+    max-width: 100%;
+    max-height: 180px;
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #b8c2e4;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+    cursor: pointer;
+    padding: 12px;
+    border-bottom: 1px solid #dee2f1;
+    transition: background-color 0.2s ease;
+}
+
+.suggestion-item:hover {
+    background-color: #dae0f7;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+/* Error Message */
+#error-message {
+    color: #e74c3c;
+    margin-top: 25px;
+    font-size: 15px;
+}
