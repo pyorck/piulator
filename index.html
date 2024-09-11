@@ -5,136 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EL INFORMER DE</title>
     <style>
-    /* Body and Background */
-    body {
-        font-family: 'Inter', sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background: linear-gradient(135deg, #e1efff, #cfe0ff); /* Subtle blue gradient background */
-        color: #333;
-    }
-    
-    /* Container */
-    .container {
-        width: 100%;
-        max-width: 700px; /* Increased container width */
-        padding: 50px;
-        text-align: center;
-        background: #f5f8ff; /* Softer light blue */
-        border-radius: 20px; /* More rounded corners */
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Deeper shadow for a more premium feel */
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-    
-    .container:hover {
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        transform: translateY(-8px); /* Slightly bigger lift on hover */
-    }
-    
-    /* Headline */
-    h1 {
-        font-size: 34px; /* Larger, bolder font for the title */
-        margin-bottom: 40px;
-        color: #2c3e50;
-        letter-spacing: 1px; /* More spaced-out for elegance */
-    }
-    
-    /* Dropdowns and Input Box */
-    .dropdown-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-    
-    .dropdown-group > div {
-        flex: 1;
-        min-width: 180px; /* Increased minimum width */
-        max-width: 240px; /* Increased max width */
-    }
-    
-    select, input {
-        padding: 14px;
-        font-size: 16px; /* Slightly larger font */
-        width: 100%;
-        box-sizing: border-box;
-        border: 1px solid #b8c2e4;
-        border-radius: 12px;
-        background-color: #eef3ff; /* Soft blue background for inputs */
-        color: #2c3e50;
-        transition: all 0.3s ease;
-        box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.05);
-    }
-    
-    select:focus, input:focus {
-        border-color: #4a90e2;
-        background-color: #ffffff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-        outline: none;
-    }
-    
-    /* Button */
-    button {
-        padding: 15px 30px; /* Larger padding for more prominence */
-        font-size: 18px; /* Bigger, bolder text */
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        margin-top: 30px;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
-    }
-    
-    button:hover {
-        background-color: #0056b3;
-        transform: translateY(-5px); /* Higher lift on hover */
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    button:active {
-        transform: translateY(0);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-    
-    /* Suggestion Box */
-    #suggestions {
-        color: #007bff;
-        margin-top: 12px;
-        font-size: 16px;
-        text-align: left;
-        max-width: 100%;
-        max-height: 100px;
-        overflow-y: auto;
-        list-style-type: none;
-        padding: 0;
-        background-color: #eef3ff; /* Light blue background */
-        border: 1px solid #b8c2e4;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        display: none; /* Hidden by default */
-    }
-    
-    .suggestion-item {
-        cursor: pointer;
-        padding: 12px;
-        border-bottom: 1px solid #dee2f1;
-        transition: background-color 0.2s ease;
-    }
-    
-    .suggestion-item:hover {
-        background-color: #dae0f7;
-    }
-    
-    .suggestion-item:last-child {
-        border-bottom: none;
-    }
+/* Body and Background */
+body {
+    font-family: 'Poppins', sans-serif; /* Switched to Poppins for modern typography */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(145deg, #d0e4ff, #acc7ff); /* Deeper blue gradient */
+    color: #333;
+    transition: all 0.3s ease; /* Smooth transitions for better interactions */
+}
+
+/* Container - Glassmorphism */
+.container {
+    width: 100%;
+    max-width: 750px;
+    padding: 50px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
+    backdrop-filter: blur(20px); /* Frosted glass */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Advanced shadows */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); /* Hover lift */
+    transform: translateY(-10px); /* Lifted on hover */
+}
+
+/* Headline */
+h1 {
+    font-size: 40px; /* Even larger font size */
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #263238; /* Darker, more modern text color */
+    letter-spacing: 1.5px;
+}
+
+/* Dropdowns and Input Box */
+.dropdown-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.dropdown-group > div {
+    flex: 1;
+    min-width: 200px; /* Larger minimum width */
+    max-width: 280px; /* More space */
+}
+
+select, input {
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3); /* Frosted glass input */
+    color: #263238;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+select:focus, input:focus {
+    border-color: #4a90e2; /* Glowing effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+/* Button - Gradient & 3D Effect */
+button {
+    padding: 16px 35px; /* Bigger padding for more prominence */
+    font-size: 18px;
+    background: linear-gradient(145deg, #0062ff, #004ed8); /* Modern gradient */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+    background: linear-gradient(145deg, #004ed8, #003bb5);
+    transform: translateY(-6px); /* 3D hover effect */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0); /* 3D press effect */
+}
+
+/* Suggestions */
+#suggestions {
+    color: #007bff;
+    margin-top: 12px;
+    font-size: 16px;
+    text-align: left;
+    max-width: 100%;
+    max-height: 180px; /* Larger height */
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.3); /* Matches the frosted glass effect */
+    border: 1px solid #b8c2e4;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+    cursor: pointer;
+    padding: 12px;
+    border-bottom: 1px solid #dee2f1;
+    transition: background-color 0.2s ease;
+}
+
+.suggestion-item:hover {
+    background-color: #dae0f7;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
     
     /* Error Message */
     #error-message {
