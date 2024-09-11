@@ -105,6 +105,7 @@
         border: 1px solid #ccc;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: none; /* Hide suggestions container by default */
     }
     
     .suggestion-item {
@@ -113,8 +114,8 @@
         border-bottom: 1px solid #eee;
     }
     
-    .suggestion-item:hover {
-        background-color: #f0f0f0;
+    .suggestion-item:last-child {
+        border-bottom: none;
     }
     
     #error-message {
@@ -249,24 +250,26 @@ function validateForm() {
 
 // Display city suggestions with improved fuzzy matching
 function displaySuggestions(input) {
+    const suggestionsBox = document.getElementById('suggestions');
+    
     if (input.length < 3) {
-        document.getElementById('suggestions').innerHTML = '';
+        suggestionsBox.innerHTML = '';
+        suggestionsBox.style.display = 'none'; // Hide suggestions box when input is short
         return;
     }
 
-    // Use Fuse.js for fuzzy matching
     const fuzzyResults = fuse.search(input);
-    const suggestions = fuzzyResults
-        .slice(0, 5) // Limit to top 5 suggestions
-        .map(result => result.item.name);
+    const suggestions = fuzzyResults.map(result => result.item.name);
 
     if (suggestions.length > 0) {
         const suggestionHTML = suggestions
             .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
             .join('');
-        document.getElementById('suggestions').innerHTML = suggestionHTML;
+        suggestionsBox.innerHTML = suggestionHTML;
+        suggestionsBox.style.display = 'block'; // Show suggestions box when there are results
     } else {
-        document.getElementById('suggestions').innerHTML = '<div>No suggestions found</div>';
+        suggestionsBox.innerHTML = '<div>No suggestions found</div>';
+        suggestionsBox.style.display = 'block'; // Show suggestions box even if no matches
     }
 }
 
