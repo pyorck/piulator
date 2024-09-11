@@ -1,5 +1,5 @@
   let data = {};
-    let allCities = [];
+  let allCities = [];
 
     function fetchData() {
         Promise.all([
