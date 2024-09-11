@@ -61,63 +61,23 @@ h1 {
     max-width: 280px; /* More space */
 }
 
-/* Dropdown Styling */
-select {
+select, input {
     padding: 15px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
     border: 2px solid transparent;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.3); /* Frosted glass effect */
+    background-color: rgba(255, 255, 255, 0.3); /* Frosted glass input */
     color: #263238;
     box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    position: relative; /* Ensure proper stacking context */
-    z-index: 1; /* Make sure dropdown appears above other content */
 }
 
-/* Ensure Dropdown Options are Visible */
-select::-ms-expand {
-    display: none; /* Hide default arrow in IE */
-}
-
-select option {
-    background: rgba(255, 255, 255, 0.9); /* Background for options */
-    color: #263238;
-    padding: 10px; /* Padding for better readability */
-}
-
-/* Remove default arrow styling */
-select {
-    appearance: none; /* Remove default arrow styling in modern browsers */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-/* Container styling to ensure dropdowns open downwards */
-.dropdown-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    justify-content: center;
-    margin-bottom: 30px;
-    position: relative; /* Relative positioning for dropdowns */
-}
-
-.dropdown-group > div {
-    flex: 1;
-    min-width: 200px;
-    max-width: 280px;
-    position: relative; /* Ensure dropdowns are contained */
-}
-
-/* Custom Styling for Select Box */
 select:focus, input:focus {
     border-color: #4a90e2; /* Glowing effect */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     outline: none;
-    z-index: 2; /* Ensure dropdown appears on top of other elements */
 }
 
 /* Button - Gradient & 3D Effect */
@@ -176,7 +136,7 @@ button:active {
 .suggestion-item:last-child {
     border-bottom: none;
 }
-    
+
     /* Error Message */
     #error-message {
         color: #e74c3c;
