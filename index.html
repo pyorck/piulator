@@ -7,16 +7,16 @@
     <style>
 /* Body and Background */
 body {
-    font-family: 'Poppins', sans-serif; /* Switched to Poppins for modern typography */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(145deg, #d0e4ff, #acc7ff); /* Deeper blue gradient */
+    background: linear-gradient(145deg, #d0e4ff, #acc7ff);
     color: #333;
-    transition: all 0.3s ease; /* Smooth transitions for better interactions */
+    transition: all 0.3s ease;
 }
 
 /* Container - Glassmorphism */
@@ -25,24 +25,24 @@ body {
     max-width: 750px;
     padding: 50px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
-    backdrop-filter: blur(20px); /* Frosted glass */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
     border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Advanced shadows */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container:hover {
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); /* Hover lift */
-    transform: translateY(-10px); /* Lifted on hover */
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
 }
 
 /* Headline */
 h1 {
-    font-size: 40px; /* Even larger font size */
+    font-size: 40px;
     font-weight: 700;
     margin-bottom: 40px;
-    color: #263238; /* Darker, more modern text color */
+    color: #263238;
     letter-spacing: 1.5px;
 }
 
@@ -53,38 +53,61 @@ h1 {
     gap: 25px;
     justify-content: center;
     margin-bottom: 30px;
+    position: relative; /* Ensure proper stacking context */
 }
 
 .dropdown-group > div {
     flex: 1;
-    min-width: 200px; /* Larger minimum width */
-    max-width: 280px; /* More space */
+    min-width: 200px;
+    max-width: 280px;
+    position: relative; /* Ensure dropdowns are contained */
 }
 
-select, input {
+/* Dropdown Styles */
+select {
     padding: 15px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
     border: 2px solid transparent;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.3); /* Frosted glass input */
+    background-color: rgba(255, 255, 255, 0.3);
     color: #263238;
     box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    position: relative; /* Ensure dropdown opens downward */
+    z-index: 1; /* Make sure dropdown appears above other content */
 }
 
-select:focus, input:focus {
-    border-color: #4a90e2; /* Glowing effect */
+select:focus {
+    border-color: #4a90e2;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     outline: none;
 }
 
+/* Remove default arrow styling */
+select::-ms-expand {
+    display: none; /* Hide default arrow in IE */
+}
+
+select option {
+    background: rgba(255, 255, 255, 0.9);
+    color: #263238;
+    padding: 10px;
+}
+
+/* Custom Styling for Select Box */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
 /* Button - Gradient & 3D Effect */
 button {
-    padding: 16px 35px; /* Bigger padding for more prominence */
+    padding: 16px 35px;
     font-size: 18px;
-    background: linear-gradient(145deg, #0062ff, #004ed8); /* Modern gradient */
+    background: linear-gradient(145deg, #0062ff, #004ed8);
     color: white;
     border: none;
     border-radius: 20px;
@@ -96,12 +119,12 @@ button {
 
 button:hover {
     background: linear-gradient(145deg, #004ed8, #003bb5);
-    transform: translateY(-6px); /* 3D hover effect */
+    transform: translateY(-6px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-    transform: translateY(0); /* 3D press effect */
+    transform: translateY(0);
 }
 
 /* Suggestions */
@@ -111,11 +134,11 @@ button:active {
     font-size: 16px;
     text-align: left;
     max-width: 100%;
-    max-height: 180px; /* Larger height */
+    max-height: 180px;
     overflow-y: auto;
     list-style-type: none;
     padding: 0;
-    background-color: rgba(255, 255, 255, 0.3); /* Matches the frosted glass effect */
+    background-color: rgba(255, 255, 255, 0.3);
     border: 1px solid #b8c2e4;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -137,12 +160,12 @@ button:active {
     border-bottom: none;
 }
 
-    /* Error Message */
-    #error-message {
-        color: #e74c3c;
-        margin-top: 25px;
-        font-size: 15px;
-    }
+/* Error Message */
+#error-message {
+    color: #e74c3c;
+    margin-top: 25px;
+    font-size: 15px;
+}
     </style>
 </head>
 <body>
