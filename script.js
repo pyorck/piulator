@@ -1,70 +1,73 @@
-  let data = {};
-  let allCities = [];
-
-    function fetchData() {
-        Promise.all([
-            fetch('data.json').then(response => response.json()),
-            fetch('cities.json').then(response => response.json())
-        ])
-        .then(([jsonData, citiesData]) => {
-            data = jsonData;
-            allCities = citiesData;
-            populateCommunities();
-            setupFuzzySearch(); // Setup Fuse.js for fuzzy search
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-    }
-
-    function populateCommunities() {
-        const communitySelect = document.getElementById('community');
-        for (const community in data) {
-            const option = document.createElement('option');
-            option.value = community;
-            option.textContent = community;
-            communitySelect.appendChild(option);
-        }
-    }
-
-    function updateProvinces() {
-        const communitySelect = document.getElementById('community');
-        const provinceSelect = document.getElementById('province');
-        const community = communitySelect.value;
-        const provinces = data[community] || {};
-
-        provinceSelect.innerHTML = '<option value="">Provincia</option>';
-        for (const province in provinces) {
-            const option = document.createElement('option');
-            option.value = province;
-            option.textContent = province;
-            provinceSelect.appendChild(option);
-        }
-
-        clearCity();
-    }
-
-    function clearCity() {
-        document.getElementById('city').value = '';
-        document.getElementById('suggestions').innerHTML = '';
-        validateForm();
-    }
-
-
-// Setup Fuse.js for fuzzy search
+let data = {};
+let allCities = [];
 let fuse;
+
+function fetchData() {
+    console.log('Fetching data...');
+    Promise.all([
+        fetch('data.json').then(response => response.json()),
+        fetch('cities.json').then(response => response.json())
+    ])
+    .then(([jsonData, citiesData]) => {
+        data = jsonData;
+        allCities = citiesData;
+        populateCommunities();
+        setupFuzzySearch(); // Setup Fuse.js for fuzzy search
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+function populateCommunities() {
+    console.log('Populating communities...');
+    const communitySelect = document.getElementById('community');
+    for (const community in data) {
+        const option = document.createElement('option');
+        option.value = community;
+        option.textContent = community;
+        communitySelect.appendChild(option);
+    }
+}
+
+function updateProvinces() {
+    console.log('Updating provinces...');
+    const communitySelect = document.getElementById('community');
+    const provinceSelect = document.getElementById('province');
+    const community = communitySelect.value;
+    const provinces = data[community] || {};
+
+    provinceSelect.innerHTML = '<option value="">Provincia</option>';
+    for (const province in provinces) {
+        const option = document.createElement('option');
+        option.value = province;
+        option.textContent = province;
+        provinceSelect.appendChild(option);
+    }
+
+    clearCity();
+}
+
+function clearCity() {
+    console.log('Clearing city...');
+    document.getElementById('city').value = '';
+    document.getElementById('suggestions').innerHTML = '';
+    validateForm();
+}
+
 function setupFuzzySearch() {
+    console.log('Setting up fuzzy search...');
     const options = {
-        threshold: 0.2, // Lower threshold for more precise matches
-        distance: 100,  // Prioritize matches closer to the start of the string
-        minMatchCharLength: 3, // Only consider matches with at least 3 characters
-        keys: ['name'] // Key for the Fuse search, assuming cities.json contains city names
+        threshold: 0.2,
+        distance: 100,
+        minMatchCharLength: 3,
+        keys: ['name']
     };
     fuse = new Fuse(allCities.map(city => ({ name: city })), options);
 }
 
-// Form validation function
 function validateForm() {
+    console.log('Validating form...');
     const community = document.getElementById('community').value;
     const province = document.getElementById('province').value;
     const city = document.getElementById('city').value.trim();
@@ -94,13 +97,13 @@ function validateForm() {
     }
 }
 
-// Display city suggestions with improved fuzzy matching
 function displaySuggestions(input) {
+    console.log('Displaying suggestions...');
     const suggestionsBox = document.getElementById('suggestions');
     
     if (input.length < 3) {
         suggestionsBox.innerHTML = '';
-        suggestionsBox.style.display = 'none'; // Hide suggestions box when input is short
+        suggestionsBox.style.display = 'none';
         return;
     }
 
@@ -112,22 +115,22 @@ function displaySuggestions(input) {
             .map(city => `<div class="suggestion-item" onclick="selectSuggestion('${city}')">${city}</div>`)
             .join('');
         suggestionsBox.innerHTML = suggestionHTML;
-        suggestionsBox.style.display = 'block'; // Show suggestions box when there are results
+        suggestionsBox.style.display = 'block';
     } else {
         suggestionsBox.innerHTML = '<div>No suggestions found</div>';
-        suggestionsBox.style.display = 'block'; // Show suggestions box even if no matches
+        suggestionsBox.style.display = 'block';
     }
 }
 
-// Handle city selection from suggestions
 function selectSuggestion(city) {
+    console.log('Selecting suggestion:', city);
     document.getElementById('city').value = city;
     document.getElementById('suggestions').innerHTML = '';
     validateForm();
 }
 
-// Handle search button click
 function searchComments() {
+    console.log('Searching comments...');
     const city = document.getElementById('city').value.trim();
     if (city && allCities.includes(city)) {
         alert(`Buscando comentarios y entradas de usuario para ${city}`);
@@ -136,5 +139,4 @@ function searchComments() {
     }
 }
 
-// Fetch data on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', fetchData);
