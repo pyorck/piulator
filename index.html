@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selecciona Comunidad, Provincia y Ciudad</title>
+    <title>EL INFORMER DE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -82,23 +82,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>Selecciona Comunidad, Provincia y Ciudad</h1>
+        <h1>EL INFORMER DE</h1>
         <div class="dropdown-group">
             <div>
-                <label for="community">Comunidad Autónoma:</label>
                 <select id="community" onchange="updateProvinces(); validateForm();">
-                    <option value="">Selecciona una comunidad</option>
+                    <option value="">Comunidad Autónoma</option>
                 </select>
             </div>
             <div>
-                <label for="province">Provincia:</label>
                 <select id="province" onchange="clearCity(); validateForm();">
-                    <option value="">Selecciona una provincia</option>
+                    <option value="">Provincia</option>
                 </select>
             </div>
             <div>
-                <label for="city">Ciudad/Pueblo:</label>
-                <input type="text" id="city" placeholder="Escribe una ciudad o pueblo" oninput="validateForm();">
+                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="validateForm();">
                 <div id="suggestions"></div>
             </div>
         </div>
@@ -145,7 +142,7 @@
         const community = communitySelect.value;
         const provinces = data[community] || {};
 
-        provinceSelect.innerHTML = '<option value="">Selecciona una provincia</option>';
+        provinceSelect.innerHTML = '<option value="">Provincia</option>';
         for (const province in provinces) {
             const option = document.createElement('option');
             option.value = province;
