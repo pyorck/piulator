@@ -5,18 +5,20 @@ body {
 }
 
 .image-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 1rem;
     padding: 1rem;
-    width: 100%;
     box-sizing: border-box;
 }
 
 .dropdown {
     position: relative;
-    overflow: hidden;
+    flex: 1;
+    min-width: 0;
     border-radius: 10px;
+    overflow: hidden;
     border: 2px solid #ddd;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
