@@ -148,6 +148,7 @@ body {
     width: 0; /* Removes the scrollbar */
 }
 
+
 .dropdown-content {
     scrollbar-width: none; /* Hides scrollbar in Firefox */
 }
