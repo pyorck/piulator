@@ -11,7 +11,6 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f4f4f4;
-    font-family: 'Poppins', sans-serif;
 }
 
 .image-container {
@@ -21,15 +20,14 @@ body {
     padding: 1rem;
     box-sizing: border-box;
     width: 100%; /* Adjust width as needed */
-    max-width: 1200px; /* Maximum width to prevent too wide containers */
+    max-width: 1200px; /* Prevent too wide containers */
 }
 
 .dropdown {
     position: relative;
     flex: 1;
-    min-width: 0;
     height: 600px; /* Adjust height as needed */
-    max-height: 600px; /* Maximum height to prevent excessive stretching */
+    max-height: 600px;
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid #ddd;
@@ -42,7 +40,7 @@ body {
 .dropdown img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures uniform scaling and cropping */
+    object-fit: cover;
     display: block;
     transition: opacity 0.3s ease;
 }
@@ -53,121 +51,84 @@ body {
 
 .overlay {
     position: absolute;
-    top: 5%; /* Adjust margin from the top */
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
-    font-size: 3vw; /* Responsive font size based on viewport width */
+    font-family: 'Poppins', sans-serif;
+    font-size: 3vw;
     text-align: center;
-    padding: 0; /* Remove padding */
-    background: none; /* Remove background */
-    border-radius: 0; /* Remove border-radius */
-    white-space: nowrap; /* Ensure text does not wrap */
+    background: none;
     z-index: 1;
-    max-height: 90%; /* Prevent overlay from exceeding image height */
     display: flex;
     align-items: center;
     justify-content: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Soft shadow for better visibility */
-    font-weight: bold; /* Make text bold */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    font-weight: bold;
 }
 
 .dropdown-content {
-    display: none;
+    display: none; /* Initially hidden */
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: white;
-    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.9); /* Softer background */
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    width: 100%;
+    width: calc(100% - 10px); /* Add 5px margin on both sides */
+    max-height: 150px; /* Limit height */
     text-align: center;
     z-index: 1;
+    padding: 5px;
+    overflow-y: auto; /* Enable scrolling if needed */
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+.dropdown-content::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers */
 }
 
-.dropdown-content a {
+.dropdown-content {
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.dropdown-content a,
+.dropdown select option {
     display: block;
-    padding: 1rem;
+    padding: 0.8rem;
     color: #333;
     text-decoration: none;
+    font-size: 1rem;
     transition: background-color 0.3s ease;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown select option:hover {
     background-color: #ddd;
 }
 
-/* Styling the select dropdown to look like links */
+/* Ensure the dropdown stays visible after selection */
+.dropdown select:focus + .dropdown-content,
+.dropdown select:active + .dropdown-content {
+    display: block; /* Show dropdown content */
+}
+
+/* Style the select element like links */
 .dropdown select {
     background: none;
     border: none;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     padding: 1rem;
-    text-align: center;
     color: #333;
     width: 100%;
-    appearance: none; /* Removes default select arrow */
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    appearance: none;
     outline: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Make the dropdown content box smaller with margins */
-.dropdown-content {
-    display: block; /* Keep it always visible once an option is selected */
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    width: calc(100% - 10px); /* Add 5px margin on left and right */
-    max-height: 90%; /* Keep inside image container */
-    margin-top: 5px; /* Margin from the top */
-    text-align: center;
-    z-index: 1;
-    overflow-y: auto; /* Enable scrolling */
-    padding: 5px; /* Additional padding inside the box */
-}
-
-/* Hides scrollbar for Webkit browsers */
-.dropdown-content::-webkit-scrollbar {
-    width: 0; /* Removes the scrollbar */
-}
-
-.dropdown-content {
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
-}
-
-.dropdown-content a,
-.dropdown select option {
+/* Always show the dropdown after selection */
+.dropdown select[aria-expanded="true"] + .dropdown-content {
     display: block;
-    padding: 1rem;
-    color: #333;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-/* Optional: Add hover effects */
-.dropdown-content a:hover,
-.dropdown select option:hover {
-    background-color: #ddd;
-}
-
-/* Display the selected option and ensure it stays visible */
-.dropdown select:focus,
-.dropdown select:active {
-    outline: none;
 }
