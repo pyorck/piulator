@@ -122,32 +122,29 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.dropdown select:hover {
-    background-color: #ddd;
-}
-
-/* The dropdown-content section for the select box */
+/* Make the dropdown content box smaller with margins */
 .dropdown-content {
-    display: none;
+    display: block; /* Keep it always visible once an option is selected */
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     background: white;
-    border-radius: 5px;
+    border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    width: 100%;
-    max-height: 100%; /* Never exceed image container height */
+    width: calc(100% - 10px); /* Add 5px margin on left and right */
+    max-height: 90%; /* Keep inside image container */
+    margin-top: 5px; /* Margin from the top */
     text-align: center;
     z-index: 1;
     overflow-y: auto; /* Enable scrolling */
+    padding: 5px; /* Additional padding inside the box */
 }
 
 /* Hides scrollbar for Webkit browsers */
 .dropdown-content::-webkit-scrollbar {
     width: 0; /* Removes the scrollbar */
 }
-
 
 .dropdown-content {
     scrollbar-width: none; /* Hides scrollbar in Firefox */
@@ -167,4 +164,10 @@ body {
 .dropdown-content a:hover,
 .dropdown select option:hover {
     background-color: #ddd;
+}
+
+/* Display the selected option and ensure it stays visible */
+.dropdown select:focus,
+.dropdown select:active {
+    outline: none;
 }
