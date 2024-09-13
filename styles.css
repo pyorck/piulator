@@ -198,3 +198,21 @@ button:active {
     background: rgba(0, 0, 0, 0.5);
 }
 
+.find-adventure_dropdown {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 2; /* Ensures it appears on top of other elements */
+}
+
+.find-adventure_dropdown:focus {
+    outline: none;
+}
