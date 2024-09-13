@@ -107,13 +107,7 @@ body {
     background-color: #ddd;
 }
 
-/* Ensure the dropdown stays visible after selection */
-.dropdown select:focus + .dropdown-content,
-.dropdown select:active + .dropdown-content {
-    display: block; /* Show dropdown content */
-}
-
-/* Style the select element like links */
+/* Styling the select dropdown */
 .dropdown select {
     background: none;
     border: none;
@@ -122,13 +116,28 @@ body {
     padding: 1rem;
     color: #333;
     width: 100%;
-    appearance: none;
-    outline: none;
+    appearance: none; /* Removes default select arrow */
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-/* Always show the dropdown after selection */
-.dropdown select[aria-expanded="true"] + .dropdown-content {
+/* Dropdown appears on interaction */
+.dropdown select:focus + .dropdown-content,
+.dropdown select:active + .dropdown-content {
     display: block;
+}
+
+/* Keep dropdown visible after selection */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Add some additional padding and margin */
+.dropdown-content {
+    padding: 5px;
+    margin: 5px;
+}
+
+/* Optional: Add hover effects */
+.dropdown-content a:hover {
+    background-color: #ddd;
 }
