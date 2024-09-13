@@ -139,10 +139,4 @@ function searchComments() {
     }
 }
 
-function toggleDropdown() {
-    const dropdown = document.querySelector('.dropdown-select');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-
 document.addEventListener('DOMContentLoaded', fetchData);
