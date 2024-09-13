@@ -103,3 +103,32 @@ body {
 .dropdown-content a:hover {
     background-color: #ddd;
 }
+
+/* Styling the select dropdown to look like links */
+.dropdown select {
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    padding: 1rem;
+    text-align: center;
+    color: #333;
+    width: 100%;
+    appearance: none; /* Removes default select arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown select:hover {
+    background-color: #ddd;
+}
+
+.dropdown option {
+    background: white;
+    color: #333;
+    padding: 1rem;
+    font-size: 1rem;
+}
