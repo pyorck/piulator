@@ -53,11 +53,13 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 1.5rem;
+    font-size: 2vw; /* Responsive font size based on viewport width */
     text-align: center;
-    padding: 1rem;
-    background: rgba(0,0,0,0.5);
-    border-radius: 5px;
+    padding: 0; /* Remove padding */
+    background: none; /* Remove background */
+    border-radius: 0; /* Remove border-radius */
+    white-space: nowrap; /* Ensure text does not wrap */
+    z-index: 1;
 }
 
 .dropdown-content {
