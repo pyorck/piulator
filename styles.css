@@ -176,7 +176,6 @@ button:active {
     background: -webkit-gradient(linear,left top,left bottom,color-stop(36%,rgba(0,0,0,0)),to(rgba(0,0,0,.4)));
     background: -webkit-linear-gradient(top,rgba(0,0,0,0) 36%,rgba(0,0,0,.4) 100%);
     background: -moz-linear-gradient(top,rgba(0,0,0,0) 36%,rgba(0,0,0,.4) 100%);
-    background: linear-gradient(180deg,rgba(0,0,0,0) 36%,rgba(0,0,0,.4) 100%)
     transition: background 0.4s ease; /* Smooth transition */
 }
 
