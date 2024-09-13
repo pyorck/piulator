@@ -144,4 +144,5 @@ function toggleDropdown() {
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
+
 document.addEventListener('DOMContentLoaded', fetchData);
