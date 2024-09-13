@@ -2,6 +2,10 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
 }
 
 .image-container {
@@ -11,14 +15,16 @@ body {
     gap: 1rem;
     padding: 1rem;
     box-sizing: border-box;
+    width: 100%; /* Adjust width as needed */
+    max-width: 1200px; /* Maximum width to prevent too wide containers */
 }
 
 .dropdown {
     position: relative;
     flex: 1;
     min-width: 0;
-    height: 400px; /* Adjust height as needed */
-    max-height: 600px; /* Maximum height to prevent excessive stretching */
+    height: 500px; /* Adjust height as needed */
+    max-height: 700px; /* Maximum height to prevent excessive stretching */
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid #ddd;
