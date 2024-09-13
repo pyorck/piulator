@@ -119,6 +119,7 @@ body {
 }
 
 /* Keep the dropdown visible when selecting */
+
 .dropdown select:focus + .dropdown-content,
 .dropdown select:active + .dropdown-content {
     display: block;
