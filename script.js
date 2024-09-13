@@ -139,4 +139,12 @@ function searchComments() {
     }
 }
 
+function updateSelection(selectElement) {
+    const dropdownContent = selectElement.parentElement.querySelector('.dropdown-content');
+    dropdownContent.style.display = 'block';
+    setTimeout(() => {
+        dropdownContent.style.opacity = '1';
+    }, 100);
+}
+
 document.addEventListener('DOMContentLoaded', fetchData);
