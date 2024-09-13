@@ -29,31 +29,30 @@
         <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
     </div>
     
-<div class="main-content-wrapper">
-  <div class="main-content_section main-content_section_space">
-    <div class="row">
-      <div class="col-sm-12 col-xs-12">
-        <div class="find-adventure">
-          <div class="find-adventure_grid">
-            <a href="https://www.vueling.com/en/book-your-flight/urban-and-cultural-destinations" class="find-adventure_card" target="_self">
-              <picture>
-                <source srcset="https://static.vueling.com/corporative7/media/1014/bucket-list_010824.webp" type="image/webp" />
-                <img src="https://static.vueling.com/corporative7/media/1013/bucket-list_010824.jpg" alt="FOR CITY LOVERS" loading="lazy" class="find-adventure_card_image">
-              </picture>
-              <div aria-hidden="true" class="find-adventure_card_overlay"></div>
-              <span class="headingM find-adventure_card_caption">FOR CITY LOVERS</span>
-                <div class="dropdown-group">
-            <div>
-                <select id="community" onchange="updateProvinces(); validateForm();">
-                    <option value="">Comunidad Autónoma</option>
-                </select>
+<div class='main-content-wrapper'>
+    <div class='main-content_section main-content_section_space'>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="find-adventure">
+                    <div class="find-adventure_grid">
+                        <a href="https://www.vueling.com/en/book-your-flight/urban-and-cultural-destinations" class="find-adventure_card" target="_self">
+                            <picture>
+                                <source srcset="https://static.vueling.com/corporative7/media/1014/bucket-list_010824.webp" type="image/webp" alt="FOR CITY LOVERS"/>
+                                <img src="https://static.vueling.com/corporative7/media/1013/bucket-list_010824.jpg" alt="FOR CITY LOVERS" loading="lazy" class="find-adventure_card_image">
+                            </picture>
+                            <div aria-hidden="true" class="find-adventure_card_overlay"></div>
+                            <!-- Dropdown placed here on top of the image -->
+                            <select class="find-adventure_dropdown">
+                                <option value="option1">Option 1</option>
+                                <option value="option2">Option 2</option>
+                                <option value="option3">Option 3</option>
+                            </select>
+                        </a>
+                    </div>
+                </div>
             </div>
-            </a>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
