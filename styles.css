@@ -203,12 +203,6 @@ button:active {
     display: inline-block;
 }
 
-.headingM {
-    cursor: pointer;
-    color: #fff;
-    padding: 0 1.5rem 1.5rem;
-}
-
 .dropdown-select {
     display: none;
     position: absolute;
