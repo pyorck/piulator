@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-/* General settings */
 html, body {
     margin: 0;
     height: 100%;
@@ -14,7 +13,6 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Container for dropdown */
 .image-container {
     display: flex;
     justify-content: space-between;
@@ -52,7 +50,6 @@ body {
     opacity: 0.6;
 }
 
-/* Overlay text */
 .overlay {
     position: absolute;
     top: 5%;
@@ -74,82 +71,56 @@ body {
 
 /* Dropdown content */
 .dropdown-content {
-    display: none;
+    display: none; /* Initially hidden */
     position: absolute;
-    bottom: 0;
+    bottom: 5%; /* Margin from the bottom */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.8); /* Softer background with some opacity */
+    background: rgba(255, 255, 255, 0.9); /* Softer background */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     width: calc(100% - 10px); /* Add margin */
-    max-height: 150px;
+    max-height: 150px; /* Limit height */
     text-align: center;
     z-index: 2;
     padding: 5px;
-    overflow-y: auto; /* Enable scroll when necessary */
+    overflow-y: auto; /* Enable scrolling if needed */
     scrollbar-width: none; /* Hide scrollbar for Firefox */
+    opacity: 0; /* Initially hidden */
     transition: opacity 0.3s ease;
-    opacity: 0; /* Hidden initially */
 }
 
-/* Scroll settings */
+/* Hide scrollbar for Webkit browsers */
 .dropdown-content::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Webkit browsers */
+    display: none;
 }
 
-/* Show dropdown content when hovering */
+/* Show dropdown on hover */
 .dropdown:hover .dropdown-content {
     display: block;
-    opacity: 1; /* Make it visible */
+    opacity: 1;
 }
 
-/* Make dropdown scrollable when more than 10 items */
-.dropdown-content a {
-    display: block;
-    padding: 0.8rem;
-    color: #333;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-/* Hover effect for links */
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-/* Styling for select dropdown */
-.dropdown select {
+/* Limit number of visible items to 10 and make it scrollable */
+.dropdown-content select {
     background: none;
     border: none;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    padding: 1rem;
+    padding: 0.8rem;
     color: #333;
     width: 100%;
     appearance: none;
     cursor: pointer;
-    outline: none;
 }
 
-/* Make dropdown content visible after selection */
+.dropdown-content option {
+    padding: 0.8rem;
+}
+
+/* Keep the dropdown visible when selecting */
 .dropdown select:focus + .dropdown-content,
 .dropdown select:active + .dropdown-content {
     display: block;
     opacity: 1;
 }
-
-/* Adjust padding and margin */
-.dropdown-content {
-    margin: 5px;
-    padding: 5px;
-}
-
-/* Show selected option below the dropdown after selection */
-.dropdown select:focus,
-.dropdown select:active {
-    display: block;
-}
-
-
