@@ -11,9 +11,8 @@
         <div class="dropdown">
             <img src="image2.jpg" alt="Image 1">
             <div class="dropdown-content">
-                <a href="#">Option 1</a>
-                <a href="#">Option 2</a>
-                <a href="#">Option 3</a>
+            <select id="community" onchange="updateProvinces(); validateForm();">
+            <option value="">-</option></select
             </div>
             <div class="overlay">CCAA</div>
         </div>
@@ -36,5 +35,9 @@
             <div class="overlay">CIUDAD</div>
         </div>
     </div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script src="script.js"></script>
+    
 </body>
 </html>
