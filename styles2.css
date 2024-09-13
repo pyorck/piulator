@@ -29,7 +29,7 @@ body {
     flex: 1;
     min-width: 0;
     height: 600px; /* Adjust height as needed */
-    max-height: 800px; /* Maximum height to prevent excessive stretching */
+    max-height: 600px; /* Maximum height to prevent excessive stretching */
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid #ddd;
@@ -53,10 +53,11 @@ body {
 
 .overlay {
     position: absolute;
-    top: 50%;
+    top: 10%; /* Adjust margin from the top */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     color: white;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
     font-size: 2vw; /* Responsive font size based on viewport width */
     text-align: center;
     padding: 0; /* Remove padding */
@@ -64,6 +65,13 @@ body {
     border-radius: 0; /* Remove border-radius */
     white-space: nowrap; /* Ensure text does not wrap */
     z-index: 1;
+    max-height: 90%; /* Prevent overlay from exceeding image height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Soft shadow for better visibility */
+    font-weight: bold; /* Make text bold */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .dropdown-content {
