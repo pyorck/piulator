@@ -147,4 +147,5 @@ function updateSelection(selectElement) {
     }, 100);
 }
 
+
 document.addEventListener('DOMContentLoaded', fetchData);
