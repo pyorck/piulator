@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* General settings */
 html, body {
     margin: 0;
     height: 100%;
@@ -13,20 +14,22 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Container for dropdown */
 .image-container {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
     padding: 1rem;
     box-sizing: border-box;
-    width: 100%; /* Adjust width as needed */
-    max-width: 1200px; /* Prevent too wide containers */
+    width: 100%;
+    max-width: 1200px;
 }
 
 .dropdown {
     position: relative;
     flex: 1;
-    height: 600px; /* Adjust height as needed */
+    min-width: 0;
+    height: 600px;
     max-height: 600px;
     border-radius: 10px;
     overflow: hidden;
@@ -49,16 +52,18 @@ body {
     opacity: 0.6;
 }
 
+/* Overlay text */
 .overlay {
     position: absolute;
     top: 5%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-family: 'Poppins', sans-serif;
     font-size: 3vw;
     text-align: center;
     background: none;
+    border-radius: 0;
+    white-space: nowrap;
     z-index: 1;
     display: flex;
     align-items: center;
@@ -67,33 +72,40 @@ body {
     font-weight: bold;
 }
 
+/* Dropdown content */
 .dropdown-content {
-    display: none; /* Initially hidden */
+    display: none;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.9); /* Softer background */
+    background: rgba(255, 255, 255, 0.8); /* Softer background with some opacity */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    width: calc(100% - 10px); /* Add 5px margin on both sides */
-    max-height: 150px; /* Limit height */
+    width: calc(100% - 10px); /* Add margin */
+    max-height: 150px;
     text-align: center;
-    z-index: 1;
+    z-index: 2;
     padding: 5px;
-    overflow-y: auto; /* Enable scrolling if needed */
+    overflow-y: auto; /* Enable scroll when necessary */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    transition: opacity 0.3s ease;
+    opacity: 0; /* Hidden initially */
 }
 
+/* Scroll settings */
 .dropdown-content::-webkit-scrollbar {
     display: none; /* Hide scrollbar for Webkit browsers */
 }
 
-.dropdown-content {
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
+/* Show dropdown content when hovering */
+.dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1; /* Make it visible */
 }
 
-.dropdown-content a,
-.dropdown select option {
+/* Make dropdown scrollable when more than 10 items */
+.dropdown-content a {
     display: block;
     padding: 0.8rem;
     color: #333;
@@ -102,12 +114,12 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.dropdown-content a:hover,
-.dropdown select option:hover {
+/* Hover effect for links */
+.dropdown-content a:hover {
     background-color: #ddd;
 }
 
-/* Styling the select dropdown */
+/* Styling for select dropdown */
 .dropdown select {
     background: none;
     border: none;
@@ -116,28 +128,26 @@ body {
     padding: 1rem;
     color: #333;
     width: 100%;
-    appearance: none; /* Removes default select arrow */
+    appearance: none;
     cursor: pointer;
+    outline: none;
 }
 
-/* Dropdown appears on interaction */
+/* Make dropdown content visible after selection */
 .dropdown select:focus + .dropdown-content,
 .dropdown select:active + .dropdown-content {
     display: block;
+    opacity: 1;
 }
 
-/* Keep dropdown visible after selection */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Add some additional padding and margin */
+/* Adjust padding and margin */
 .dropdown-content {
-    padding: 5px;
     margin: 5px;
+    padding: 5px;
 }
 
-/* Optional: Add hover effects */
-.dropdown-content a:hover {
-    background-color: #ddd;
+/* Show selected option below the dropdown after selection */
+.dropdown select:focus,
+.dropdown select:active {
+    display: block;
 }
