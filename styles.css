@@ -193,3 +193,8 @@ button:active {
     bottom: 0;
     padding: 0 1.5rem 1.5rem
 }
+
+.find-adventure_card:hover .find-adventure_card_overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
