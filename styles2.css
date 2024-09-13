@@ -1,17 +1,18 @@
-body {
+html, body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    height: 100%;
+}
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f4;
 }
 
 .image-container {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
     gap: 1rem;
     padding: 1rem;
     box-sizing: border-box;
@@ -23,8 +24,8 @@ body {
     position: relative;
     flex: 1;
     min-width: 0;
-    height: 500px; /* Adjust height as needed */
-    max-height: 700px; /* Maximum height to prevent excessive stretching */
+    height: 400px; /* Adjust height as needed */
+    max-height: 500px; /* Maximum height to prevent excessive stretching */
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid #ddd;
