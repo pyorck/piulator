@@ -177,6 +177,11 @@ button:active {
     background: -webkit-linear-gradient(top,rgba(0,0,0,0) 36%,rgba(0,0,0,.4) 100%);
     background: -moz-linear-gradient(top,rgba(0,0,0,0) 36%,rgba(0,0,0,.4) 100%);
     background: linear-gradient(180deg,rgba(0,0,0,0) 36%,rgba(0,0,0,.4) 100%)
+    transition: background 0.4s ease; /* Smooth transition */
+}
+
+.find-adventure_card:hover .find-adventure_card_overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 36%, rgba(0,0,0,0.4) 100%); /* Slightly more transparent */
 }
 
 .find-adventure_card .find-adventure_card_image {
@@ -192,27 +197,4 @@ button:active {
     left: 0;
     bottom: 0;
     padding: 0 1.5rem 1.5rem
-}
-
-.find-adventure_card:hover .find-adventure_card_overlay {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.find-adventure_dropdown {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: none;
-    font-size: 1rem;
-    color: #333;
-    cursor: pointer;
-    z-index: 2; /* Ensures it appears on top of other elements */
-}
-
-.find-adventure_dropdown:focus {
-    outline: none;
 }
