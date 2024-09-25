@@ -1,88 +1,131 @@
-/* Body and Background */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* BODY */
+
 body {
     font-family: 'Poppins', sans-serif; /* Switched to Poppins for modern typography */
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column; /* Stack children vertically */
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(145deg, #d0e4ff, #acc7ff); /* Deeper blue gradient */
-    color: #333;
-    transition: all 0.3s ease; /* Smooth transitions for better interactions */
+    background-color: #dbdbdb;
 }
 
-/* Container - Glassmorphism */
-.container {
-    width: 100%;
-    max-width: 750px;
-    padding: 50px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.2); /* Glassmorphism effect */
-    backdrop-filter: blur(20px); /* Frosted glass */
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Advanced shadows */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+/* CONTENT WRAPPER */
 
-.container:hover {
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); /* Hover lift */
-    transform: translateY(-10px); /* Lifted on hover */
-}
-
-/* Headline */
-h1 {
-    font-size: 40px; /* Even larger font size */
-    font-weight: 700;
-    margin-bottom: 40px;
-    color: #263238; /* Darker, more modern text color */
-    letter-spacing: 1.5px;
-}
-
-/* Dropdowns and Input Box */
-.dropdown-group {
+.content-wrapper {
     display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-.dropdown-group > div {
-    flex: 1;
-    min-width: 200px; /* Larger minimum width */
-    max-width: 280px; /* More space */
-}
-
-select, input {
-    padding: 15px;
-    font-size: 16px;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
+    max-width: 1000px;
+    margin-bottom: 2rem;
+}
+
+/* IMAGE */
+
+.image-container {
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
     box-sizing: border-box;
-    border: 2px solid transparent;
-    border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.3); /* Frosted glass input */
-    color: #263238;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+
 }
 
-select:focus, input:focus {
-    border-color: #4a90e2; /* Glowing effect */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    outline: none;
+.img {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    height: 600px;
+    max-height: 600px;
+    width: 600px;
+    max-width: 600px;
+    border-radius: 45px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Button - Gradient & 3D Effect */
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 1s ease-out;
+}
+
+.img:hover img {
+    opacity: 0.7;
+}
+
+/* TEXT OVER THE IMAGE */
+
+.overlay {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(255, 255, 255);
+    font-size: 2.2REM;
+    max-width: 2.2REM;
+    text-align: center;
+    background: none;
+    border-radius: 0;
+    white-space: nowrap;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    font-weight: bold;
+}
+
+/* INPUT BOX OVER THE IMAGE */
+
+input {
+    position: absolute;
+    bottom: 5%;
+    transform: translateX(0%);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: opacity 1s ease;
+    width: 55%;
+    opacity: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 3px;
+    display: none; /* Hidden by default */
+}
+
+.img:hover input {
+    display: flex;
+    opacity: 1;
+}
+
+.show {
+    opacity: 1 !important;
+    display: flex;
+}
+
+/* BUTTON ¡INFÓRMAME! */
+
 button {
     padding: 16px 35px; /* Bigger padding for more prominence */
     font-size: 18px;
     background: linear-gradient(145deg, #0062ff, #004ed8); /* Modern gradient */
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 40px;
     cursor: pointer;
-    margin-top: 35px;
+    margin-top: 30px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
@@ -97,42 +140,91 @@ button:active {
     transform: translateY(0); /* 3D press effect */
 }
 
-/* Suggestions */
+/* SUGGESTIONS MESSAGE */
+
 #suggestions {
-    color: #007bff;
-    margin-top: 12px;
-    font-size: 16px;
-    text-align: left;
-    max-width: 100%;
-    max-height: 80px; /* Larger height */
-    overflow-y: auto;
-    list-style-type: none;
-    padding: 0;
-    background-color: rgba(255, 255, 255, 0.3); /* Matches the frosted glass effect */
-    border: 1px solid #b8c2e4;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: none; /* Hidden by default */
-}
-
-.suggestion-item {
+    color: #000000;
+    position: relative;
     cursor: pointer;
-    padding: 12px;
-    border-bottom: 1px solid #dee2f1;
-    transition: background-color 0.2s ease;
+    max-width: 400px;
+    align-items: center;
+    text-align: center;
+    margin-bottom: -20px;
 }
 
-.suggestion-item:hover {
-    background-color: #dae0f7;
+/* CITY VALIDATED */
+
+#cities {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: -1.2rem;
+    background: rgb(48, 48, 48);
+    border-radius: 50px;
+    color: white;
+    padding: 10px;
+    max-width: 600px;
+    align-items: center;
+    justify-content: center;
 }
 
-.suggestion-item:last-child {
-    border-bottom: none;
+/* TEXT FORMATTING H1,H2... */
+
+h1 {
+    text-align: center;
+    text-justify: center;
+    align-items: center;
+    color:rgba(3, 3, 0, 0.753);
+    text-shadow: 1px 1px 4px rgba(255, 203, 30, 0.897);
+    margin-bottom: 10px
 }
 
-/* Error Message */
-#error-message {
-    color: #e74c3c;
-    margin-top: 25px;
-    font-size: 15px;
+h2 {
+    text-align: center;
+    text-justify: center;
+    align-items: center;
+    color:rgb(0, 0, 0);
+}
+
+p {
+    text-align: center;
+    margin-top: -8px;
+    margin-bottom: 5px;
+    max-width: 750px;
+}
+
+/* HOT WORDS */
+
+.hotwords-container {
+    flex: 1;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    padding: 1rem;
+    background-color: #fff4c269;
+    margin-top: 2%;
+    height: 567px;
+    transition: opacity 0.5s ease-out;
+    max-width: 350px;
+    overflow: hidden;
+}
+
+.hotwords-container:hover {
+    opacity: 0.7;
+}
+
+#hotwords span {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+#hotwords span:hover {
+    transform: scale(1.2);
 }

@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFORMER</title>
+    <title>The Informer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<header>
+<h1>INFORMER</h1>
+<P>¿MEJOR RESTAURANTE ROMÁNTICO DE...? ¿ALGUIEN ALQUILA UNA HABITACIÓN EN...?</P>
+<P>BUSCAMOS COCINERO PARA EL RESTAURANTE... SE HA ENCONTRADO ESTE GATO PERDIDO EN...</P>
+<P>ESTO Y MUCHO MÁS, BUSCA EL PUEBLO O CIUDAD QUE TE INTERESA, ¡INFORMA, INFÓRMATE!</P>
+</header>
 <body>
-    <div class="container">
-        <h1>THE INFORMER</h1>
-        <div class="dropdown-group">
-            <div>
-                <select id="community" onchange="updateProvinces(); validateForm();">
-                    <option value="">Comunidad Autónoma</option>
-                </select>
+    <div class="content-wrapper">
+        <div class="image-container">
+            <div class="img">
+                <img src="image1.jpg" alt="Image 2">
+                <input type="text" id="city" autocomplete="off" oninput="validateForm();">
+                <div class="overlay">INFÓRMAME DE</div>
             </div>
-            <div>
-                <select id="province" onchange="clearCity(); validateForm();">
-                    <option value="">Provincia</option>
-                </select>
-            </div>
-            <div>
-                <input type="text" id="city" placeholder="Ciudad/Pueblo" oninput="validateForm();">
-                <div id="suggestions"></div>
-            </div>
+        </div>  
+        <div class="hotwords-container">
+            <h2>Popular en</h2>
+            <div id="cities"></div>
+            <div id="hotwords"></div>
         </div>
-        <div id="error-message"></div>
-        <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
     </div>
     
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+    <div id="error-message"></div><div id="suggestions"></div>
+    <button id="searchButton" onclick="searchComments()" disabled>¡Infórmame!</button>
+    
+<script src="fuse.min.js"></script>
 <script src="script.js"></script>
     
 </body>
